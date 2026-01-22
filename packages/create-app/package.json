@@ -1,0 +1,18 @@
+{
+  "name": "@koda/create-app",
+  "version": "0.1.0-zenith",
+  "description": "The official bootstrapper for Koda Zenith projects",
+  "type": "module",
+  "bin": {
+    "create-koda-app": "./src/index.ts"
+  },
+  "dependencies": {
+    "clack-prompts": "^0.7.0",
+    "picocolors": "^1.0.0",
+    "fs-extra": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/fs-extra": "^11.0.0"
+  }
+}
