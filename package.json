@@ -1,0 +1,18 @@
+{
+  "name": "koda",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "echo 'Run dev from a specific package'",
+    "build": "echo 'Build logic TBD'",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "typescript": "~5.8.2",
+    "@types/node": "^22.14.0"
+  }
+}
