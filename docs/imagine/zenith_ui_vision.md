@@ -112,7 +112,51 @@ If you try to use a color that doesn't exist (`Colors.Red500` when you only defi
 
 ---
 
-## 🧘 Universal Reactivity: The Signal Bus
+## � Deep Dive: The Hyper-Compiler (Svelte on Steroids)
+
+You noticed it. Zenith shares **Svelte's DNA**: It is a Compiler, not a Runtime. But while Svelte compiles *Components to Vanilla JS*, Zenith compiles **Architecture to Reality**.
+
+### The "Causality" of Zenith
+Zenith treats your `.koda` code not as instructions for the browser, but as **instructions for the Compiler**.
+
+| Feature | Svelte Compiler | Zenith Hyper-Compiler |
+| :--- | :--- | :--- |
+| **Target** | Reactive DOM Updates | Polymorphic (HTML, React, Qwik, Vue) |
+| **CSS** | Scoped CSS Classes | Atomic CSS Extraction (Zero Runtime) |
+| **Logic** | Reactive Statements | Resumable Chunks (Qwik) or Hydration (React) |
+| **Safety** | Syntax Checking | **Architectural Enforcement** (A11y, Tokens) |
+
+### Polymorphic Output
+The craziest part? Zenith compiles the *same code* into different outputs based on the `engine` context.
+
+**Input (`.koda`):**
+```koda
+Text(counter.value)
+```
+
+**Output 1 (React Mode):**
+```javascript
+// Function calls specifically optimized for React Fiber
+return React.createElement('span', null, useSignal(counter));
+```
+
+**Output 2 (Qwik Mode):**
+```javascript
+// Fine-grained DOM operation
+return <span on:qvisible={...}>{counter.value}</span>
+```
+
+**Output 3 (HTML Mode):**
+```html
+<!-- Server-side only static render -->
+<span>0</span>
+```
+
+> **The Insight**: Zenith is the "Babel of UI Frameworks." It doesn't have a runtime opinion; it adopts the opinion of the engine it targets.
+
+---
+
+## �🧘 Universal Reactivity: The Signal Bus
 
 Zenith introduces a **Unified Signal Protocol** that creates a wormhole between frameworks.
 
