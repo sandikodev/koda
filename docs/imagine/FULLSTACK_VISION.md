@@ -823,7 +823,7 @@ export default defineConfig({
 
 ```koda
 import @koda/ui;
-import { t } from "@koda/core/i18n";
+import { t } from "@koda/ui";
 
 Screen About {
   Text(t("about.title"), style: Styles.H1);
@@ -838,7 +838,7 @@ Screen About {
 ```typescript
 // lib/stores/cart.ts
 
-import { createStore } from '@koda/core/state';
+import { createStore } from '@koda/ui';
 
 interface CartStore {
   items: CartItem[];
@@ -867,7 +867,7 @@ export const useCart = createStore<CartStore>((set, get) => ({
 ```typescript
 // lib/queries/users.ts
 
-import { createQuery, createMutation } from '@koda/core/query';
+import { createQuery, createMutation } from '@koda/ui';
 
 export const useUsers = createQuery({
   queryKey: ['users'],
@@ -1015,7 +1015,7 @@ export const GET: RouteHandler = async (c) => {
 
 ```koda
 import @koda/ui;
-import { useWebSocket, useSSE } from "@koda/core/realtime";
+import { useWebSocket, useSSE } from "@koda/ui";
 
 Screen ChatRoom {
   state messages = [];
@@ -1117,7 +1117,7 @@ export default defineConfig({
 
 ```koda
 import @koda/ui;
-import { useUpload } from "@koda/core/storage";
+import { useUpload } from "@koda/ui";
 
 Screen ProfileSettings {
   state avatarUrl = user.avatarUrl;
@@ -1361,7 +1361,7 @@ export const POST: RouteHandler = async (c) => {
 
 ```koda
 import @koda/ui;
-import { useSubscription } from "@koda/core/payments";
+import { useSubscription } from "@koda/ui";
 
 Screen BillingSettings {
   state subscription = useSubscription();
@@ -1508,7 +1508,7 @@ export const GET: RouteHandler = async (c) => {
 
 ```koda
 import @koda/ui;
-import { lazy } from "@koda/core";
+import { lazy } from "@koda/ui";
 
 // Lazy load heavy components
 const HeavyChart = lazy(() => import("@/components/HeavyChart"));
@@ -1757,7 +1757,7 @@ export const GET: RouteHandler = async (c) => {
 
 ```koda
 import @koda/ui;
-import { useSearch } from "@koda/core/search";
+import { useSearch } from "@koda/ui";
 
 Screen SearchPage {
   state query = "";
@@ -1818,7 +1818,7 @@ Screen SearchPage {
 // lib/schemas/contact.ts
 
 import { z } from 'zod';
-import { createForm } from '@koda/core/forms';
+import { createForm } from '@koda/ui';
 
 const ContactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -1857,7 +1857,7 @@ export const actions = {
 
 ```koda
 import @koda/ui;
-import { useForm } from "@koda/core/forms";
+import { useForm } from "@koda/ui";
 
 Screen ContactPage {
   const form = useForm(contactForm);
@@ -1925,7 +1925,7 @@ Screen ContactPage {
 
 ```koda
 import @koda/ui;
-import { useMultiStepForm } from "@koda/core/forms";
+import { useMultiStepForm } from "@koda/ui";
 
 Screen CheckoutFlow {
   const wizard = useMultiStepForm([
@@ -2016,7 +2016,7 @@ await koda.notifications.broadcast({
 
 ```koda
 import @koda/ui;
-import { useNotifications } from "@koda/core/notifications";
+import { useNotifications } from "@koda/ui";
 
 Screen NotificationsPanel {
   const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications();
@@ -2113,7 +2113,7 @@ Layout AdminLayout {
 // routes/admin/users/+page.koda
 
 import @koda/ui;
-import { useDataTable } from "@koda/core/admin";
+import { useDataTable } from "@koda/ui";
 
 Screen UsersList {
   props: { data: users };
@@ -2383,7 +2383,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 ```koda
 // Client-side
 import @koda/ui;
-import { useFeature } from "@koda/core/features";
+import { useFeature } from "@koda/ui";
 
 Screen Dashboard {
   const showNewDashboard = useFeature("newDashboard");
@@ -3028,7 +3028,7 @@ Screen NFTGallery {
 Koda operates on the principle of **Standard Chassis vs. Creative Paint**:
 
 1.  **The Chassis (`@koda/core`)**: The invisible, rigid infrastructure. Security, Routing, SEO, Data Loading, and Diagnostics. This is non-negotiable and provides institutional stability.
-2.  **The Paint (`@koda/ui`)**: The visual layer. While Koda provides structural primitives (Bento, ZenithStage), the "Paint" is 100% Tailwind-powered and fully customizable.
+2.  **The Paint & Focus (`@koda/ui`)**: The primary interface for the application developer. It orchestrates the visual layer (Bento, ZenithStage), the `.koda` DSL, and all frontend-focused hooks (State, Forms, Search, etc.).
 
 ### Extending the Chassis
 
