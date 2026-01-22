@@ -1,3 +1,7 @@
+<align align="center">
+  <img src="assets/images/logo.png" width="120" alt="Koda Zenith Logo" />
+</align>
+
 ![Koda Zenith Epic Hero](assets/images/zenith_hero.png)
 
 # 💎 Koda: The Universal Zenith Metaframework 🛰️
