@@ -3073,9 +3073,12 @@ export default defineChassisExtension({
 | **Testing** | Unit, integration, E2E |
 | **CI/CD** | Preview deploys, zero-downtime |
 | **Production** | Multi-region, auto-scaling |
-| **Observability** | Logging, tracing, errors |
+| Observability | Logging, tracing, errors |
+| **Philosophy** | Meritocratic Synthesis, Non-dogmatic, Beyond Framework Wars |
 
 ---
+
+**"Koda is the proof that framework assimilation is possible. It is the end of the framework wars, and the beginning of Merit-based engineering."**
 
 **"From `koda init` to production in minutes, not months."**
 
