@@ -170,8 +170,11 @@ export const counter = signal(0);
 
 *   **In React**: `useSignal(counter)` -> Triggers Re-render.
 *   **In Svelte**: `$counter` -> Triggers Reactivity.
+*   **In Qwik**: `counter.value` -> Triggers fine-grained update (Resumable & Serialized).
 *   **In Solid**: `counter()` -> Triggers Effect.
 *   **In Zenith**: `Text(counter.value)` -> Updates Text Node directly (Fine-grained).
+
+> **Note for Qwik**: Koda Signals are automatically **Serializable**. When a Qwik Island hydrates, the signal state is restored from the JSON payload without re-running initialization logic.
 
 ---
 
