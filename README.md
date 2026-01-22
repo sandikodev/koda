@@ -1,10 +1,19 @@
-<align align="center">
-  <img src="assets/images/logo.png" width="120" alt="Koda Zenith Logo" />
-</align>
+<div align="center">
+
+<img src="assets/images/logo.png" width="160" alt="Koda Zenith Voyager Logo" />
+
+# 💎 Koda: The Universal Zenith Metaframework 🛰️
+**Beyond Human Limits • Cosmic Performance • Sovereign Engineering**
+
+[![Zenith Phase](https://img.shields.io/badge/PHASE-2_EVENT_HORIZON-8B5CF6?style=for-the-badge&logo=rocket)](docs/ZENITH_STRATEGY.md)
+[![Rust](https://img.shields.io/badge/ENGINE-RUST_WASM-3B82F6?style=for-the-badge&logo=rust)](packages/compiler)
+[![State](https://img.shields.io/badge/STATE-SIGNALS-EF4444?style=for-the-badge&logo=lightrun)](packages/signals)
+
+---
 
 ![Koda Zenith Epic Hero](assets/images/zenith_hero.png)
 
-# 💎 Koda: The Universal Zenith Metaframework 🛰️
+</div>
 
 **Koda** is the next-generation fullstack metaframework that harmonizes the most advanced development paradigms into a single, **non-destructive synergy**. It combines the ergonomics of **Elysia**, the power of **Hono/Nest**, the visibility of **Astro**, the consistency of **Flutter**, and the structure of **Laravel**—all running natively on **Bun/Deno** runtimes.
 
