@@ -1,0 +1,14 @@
+/home/dev/project/margins-pro/packages/koda/packages/compiler/target/debug/deps/serde-52cbd378d765c099.d: /home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/lib.rs /home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/integer128.rs /home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/mod.rs /home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/de.rs /home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/ser.rs /home/dev/project/margins-pro/packages/koda/packages/compiler/target/debug/build/serde-0c79bc1bb5bf9eba/out/private.rs
+
+/home/dev/project/margins-pro/packages/koda/packages/compiler/target/debug/deps/libserde-52cbd378d765c099.rlib: /home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/lib.rs /home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/integer128.rs /home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/mod.rs /home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/de.rs /home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/ser.rs /home/dev/project/margins-pro/packages/koda/packages/compiler/target/debug/build/serde-0c79bc1bb5bf9eba/out/private.rs
+
+/home/dev/project/margins-pro/packages/koda/packages/compiler/target/debug/deps/libserde-52cbd378d765c099.rmeta: /home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/lib.rs /home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/integer128.rs /home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/mod.rs /home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/de.rs /home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/ser.rs /home/dev/project/margins-pro/packages/koda/packages/compiler/target/debug/build/serde-0c79bc1bb5bf9eba/out/private.rs
+
+/home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/lib.rs:
+/home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/integer128.rs:
+/home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/mod.rs:
+/home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/de.rs:
+/home/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/ser.rs:
+/home/dev/project/margins-pro/packages/koda/packages/compiler/target/debug/build/serde-0c79bc1bb5bf9eba/out/private.rs:
+
+# env-dep:OUT_DIR=/home/dev/project/margins-pro/packages/koda/packages/compiler/target/debug/build/serde-0c79bc1bb5bf9eba/out

@@ -270,9 +270,9 @@ We are not building a castle in the clouds. We are building a skyscraper, floor 
 
 Do not just take our word for it. Read the blueprints:
 
-*   **[🎨 Zenith UI Vision](./docs/imagine/zenith_ui_vision.md)**: The Hyper-Compiler, .koda DSL, and Qwik Synergy.
-*   **[⚙️ Agnostic Kernel Vision](./docs/imagine/agnostic_kernel_vision.md)**: The Rust/WASM Turbocharger & Web3 Bridge.
-*   **[📜 Full Project Vision](./docs/imagine/FULLSTACK_VISION.md)**: The complete manifesto.
+*   **[🎨 Zenith UI Vision](./docs/blueprint/zenith_ui_vision.md)**: The Hyper-Compiler, .koda DSL, and Qwik Synergy.
+*   **[⚙️ Agnostic Kernel Vision](./docs/blueprint/agnostic_kernel_vision.md)**: The Rust/WASM Turbocharger & Web3 Bridge.
+*   **[📜 Full Project Vision](./docs/blueprint/FULLSTACK_VISION.md)**: The complete manifesto.
 
 ---
 

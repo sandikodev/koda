@@ -9,6 +9,17 @@
         "typescript": "~5.8.2",
       },
     },
+    "packages/bridge": {
+      "name": "@koda/bridge",
+      "version": "0.1.0",
+      "dependencies": {
+        "@koda/signals": "workspace:*",
+      },
+      "peerDependencies": {
+        "react": ">=18",
+        "react-dom": ">=18",
+      },
+    },
     "packages/cli": {
       "name": "@koda/cli",
       "version": "0.1.0",
@@ -19,6 +30,13 @@
         "@koda/core": "workspace:*",
         "commander": "^13.1.0",
         "picocolors": "^1.1.1",
+      },
+    },
+    "packages/compiler": {
+      "name": "@koda/compiler",
+      "version": "0.1.0",
+      "devDependencies": {
+        "typescript": "~5.8.2",
       },
     },
     "packages/core": {
@@ -60,6 +78,7 @@
       "name": "@koda/ui",
       "version": "0.1.0",
       "dependencies": {
+        "@koda/signals": "workspace:*",
         "clsx": "^2.1.0",
         "framer-motion": "^12.26.2",
         "lucide-react": "^0.473.0",
@@ -132,7 +151,11 @@
 
     "@esbuild/win32-x64": ["@esbuild/win32-x64@0.27.2", "", { "os": "win32", "cpu": "x64" }, "sha512-sRdU18mcKf7F+YgheI/zGf5alZatMUTKj/jNS6l744f9u3WFu4v7twcUI9vu4mknF4Y9aDlblIie0IM+5xxaqQ=="],
 
+    "@koda/bridge": ["@koda/bridge@workspace:packages/bridge"],
+
     "@koda/cli": ["@koda/cli@workspace:packages/cli"],
+
+    "@koda/compiler": ["@koda/compiler@workspace:packages/compiler"],
 
     "@koda/core": ["@koda/core@workspace:packages/core"],
 
