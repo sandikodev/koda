@@ -104,7 +104,26 @@ The Kernel handles the resolution difference, allowing you to build **Hybrid Dap
 
 ---
 
-## �🛡️ The Security Fortress (Internals)
+## 🦀 The Turbocharger: Native Rust & WASM
+
+You hit the nail on the head. To achieve "Breaking Physics" performance, TypeScript is sometimes too slow. The Kernel is designed to be a **Hybrid Runtime**.
+
+### 1. `@koda/core-wasm`
+Critical CPU-bound paths are written in **Rust** and compiled to WebAssembly.
+*   **Cryptography**: Hashing, Signing (Ed25519), and AES-GCM run at near-native speed (essential for the Web3 Bridge).
+*   **Parsing**: The Zenith Compiler (transforming `.koda` files) logic actually lives here.
+*   **Compression**: Sovereign Session Gzip/Brotli happens in Rust.
+
+### 2. Isomorphic Fallback
+The Kernel is smart. It detects the environment capabilities:
+*   **Best Case**: Load `koda_core.wasm`. (Rust Speed).
+*   **Fallback**: If WASM is disabled (CSP policies), fall back to pure TypeScript implementations.
+
+This ensures Koda **runs on a toaster, but flies on a server**.
+
+---
+
+## 🛡️ The Security Fortress (Internals)
 
 ### 1. Sovereign Session Encryption
 Koda does not trust cookies.
