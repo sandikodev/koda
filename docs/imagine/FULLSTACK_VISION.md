@@ -13,62 +13,66 @@ This document describes the **ideal fullstack Koda project** structure. Koda is 
 
 ## 📁 Project Structure
 
-```
+## 📁 The Institutional Anatomy: Codebase Structure
+
+This structure represents a **fully mature Koda application** utilizing both Functional (Frontend) and Enterprise (Backend) capabilities.
+
+```bash
 my-koda-app/
-├── koda.config.ts           # Single config file (like next.config.js)
-├── proxy.ts                 # Gateway & Lifecycle (Zenith Synthesis)
+├── koda.config.ts             # ⚙️ The Institutional Manifesto (Config)
+├── proxy.ts                   # 🛡️ The Gateway Proxy (Next.js 16 style)
 ├── package.json
 │
-├── content/                  # 📚 Content Collections (Astro-style)
-│   ├── blog/
-│   │   ├── first-post.md
-│   │   └── second-post.mdx
+├── content/                   # 📚 The Narrative Engine (CMS)
+│   ├── blog/                  # Markdown/MDX content collections
 │   └── docs/
-│       └── getting-started.md
 │
-├── routes/                   # 🛣️ File-based Routing (SvelteKit-style)
-│   ├── +layout.koda         # Root layout (Zenith DSL)
-│   ├── +page.koda           # Homepage (/)
-│   ├── +page.server.ts      # Server-only data loader
+├── routes/                    # 🛣️ The Routing Fabric (SvelteKit-style)
+│   ├── +layout.koda          # 🎨 Root Institutional Layout
+│   ├── +page.koda            # Landing Page (Zenith DSL)
 │   │
-│   ├── blog/
-│   │   ├── +page.koda       # Blog listing (/blog)
-│   │   └── [slug]/
-│   │       ├── +page.koda   # Blog detail (/blog/:slug)
-│   │       └── +page.server.ts
-│   │
-│   ├── app/                  # 🔒 Protected routes
-│   │   ├── +layout.koda     # App shell with auth guard
+│   ├── app/                   # 🔒 Application Domain
+│   │   ├── +layout.server.ts # Data Loaders (Functional)
 │   │   ├── dashboard/
-│   │   │   └── +page.tsx    # React/TSX for interactivity
+│   │   │   └── +page.tsx     # React Island (Interactive)
 │   │   └── settings/
-│   │       └── +page.svelte # Svelte component (multi-engine!)
+│   │       └── +page.svelte  # Svelte Island (Performance)
 │   │
-│   └── api/                  # ⚡ API Routes (Hono-native)
+│   └── api/                   # ⚡ The Gateway Interface
 │       ├── users/
-│       │   └── +server.ts   # GET/POST /api/users
-│       ├── auth/
-│       │   └── +server.ts   # Auth endpoints
+│       │   ├── +server.ts    # Functional Route Handler
+│       │   └── +controller.ts # 🏛️ Enterprise Controller (Optional)
 │       └── webhooks/
-│           └── +server.ts
+│           └── +job.ts       # Background Job Definition
 │
-├── lib/                      # 🧰 Shared utilities
-│   ├── db.ts                # Database client (Drizzle/Prisma)
-│   ├── auth.ts              # Auth logic
-│   └── schemas.ts           # Zod schemas
+├── lib/                       # � The Business Core (Enterprise Layer)
+│   ├── services/              # 🏛️ Service Container (DI)
+│   │   ├── AuthService.ts
+│   │   └── BillingService.ts
+│   ├── contracts/             # 📜 Interfaces & DTOs
+│   │   └── IUserRepository.ts
+│   ├── providers/             # 🔌 External Integrations
+│   │   └── StripeProvider.ts
+│   └── utils/                 # Pure Functions
 │
-├── components/               # 🎨 UI Components
-│   ├── ui/                  # Project-specific "Paint"
-│   │   ├── Header.koda
-│   │   └── Footer.koda
-│   └── islands/             # Interactive Islands
-│       ├── SearchBar.tsx    # React island
-│       └── Chart.svelte     # Svelte island
+├── db/                        # 💾 The Persistence Layer (@koda/db)
+│   ├── schema/                # Drizzle-style Schema Definitions
+│   │   ├── users.ts
+│   │   └── audit.ts
+│   ├── migrations/            # SQL Migration History
+│   └── seed.ts                # Data Seeding Script
 │
-└── static/                   # 📁 Static assets
+├── components/                # 🎨 The Design System (@koda/ui)
+│   ├── tokens/                # Design Tokens (Colors, Typography)
+│   ├── primitives/            # Reusable Bento/Zenith Atoms
+│   └── islands/               # Framework-specific Islands
+│
+└── static/                    # 📁 Public Assets (Edge Cached)
     ├── favicon.ico
-    └── images/
+    └── robots.txt
 ```
+
+> **Insight**: Notice the harmony. `routes/` handles the *Traffic* (HTTP/UI), `lib/` handles the *Logic* (Business Rules), and `db/` handles the *Memory*. The `proxy.ts` stands guard at the door.
 
 ## 📦 The Zenith Ecosystem: Modular Responsibility
 
