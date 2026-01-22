@@ -64,6 +64,34 @@ Screen Dashboard {
 }
 ```
 
+## ⚡ The Qwik Synergy: The Golden Ratio
+
+While Koda supports React and Svelte, **Qwik** is Zenith's "Soulmate".
+
+*   **Zenith** compiles Layouts to **0KB HTML/CSS**.
+*   **Qwik** compiles Logic to **0KB Initial JS** (Resumable).
+
+**The Combination**:
+This is the only stack in existence that allows you to build a **Complex Enterprise Dashboard** that loads with **0KB of JavaScript** on the main thread, and *only* downloads the specific click-handler for the "Buy" button when the user's mouse hovers over it.
+
+```koda
+// A truly 0KB Initial Load Dashboard
+Screen UltraFastDashboard {
+  
+  // Rendered as Pure HTML/CSS
+  Sidebar { ... } 
+  
+  // Interactive, but 0KB JS on load.
+  // The JS for 'onBuy' is lazy-loaded ONLY on hover/interaction.
+  QwikIsland {
+    engine: "qwik";
+    src: "@/components/BuyButton";
+    props: { id: "123" };
+  }
+}
+```
+> **The Insight**: React Islands require downloading the React Runtime + Component Code before *anything* is interactive. Qwik Islands require **Nothing**. They are interactive immediately via global event delegation.
+
 ### 3. Design Token Orchestration
 In Zenith, Design Tokens are not just CSS variables. They are **Runtime Types**.
 
