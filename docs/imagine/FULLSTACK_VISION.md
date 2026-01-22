@@ -64,6 +64,21 @@ my-koda-app/
     └── images/
 ```
 
+## 📦 The Zenith Ecosystem: Modular Responsibility
+
+Koda is organized into specialized packages to ensure a strict **Separation of Concerns**. This modularity allows the framework to remain lightweight at runtime while providing institutional-grade power during development.
+
+| Package | Responsibility | Role |
+| :--- | :--- | :--- |
+| **`@koda/core`** | The Kernel | Factory (`koda()`), Routing, Middleware, Security. |
+| **`@koda/ui`** | The Interface | `.koda` DSL, Primitives (Bento), Client Hooks, State. |
+| **`@koda/cli`** | Automation | Scaffolding, `init`, `audit`, `evolve`, `generate`. |
+| **`@koda/dx`** | Diagnostics | Forensic Brain, Error Layouts, Source-Code Parsing. |
+| **`@koda/content`**| Orchestration | MDX Engine, Content Collections, Zod validation. |
+| **`@koda/db`** | Persistence | Migrations, Seeding, Drizzle/SQL Orchestration. |
+| **`@koda/jobs`** | Background | Job Queues, Workers, Cron Scheduling. |
+| **`@koda/realtime`**| Connectivity | WebSockets, SSE, Pub/Sub. |
+
 ---
 
 ## ⚙️ Configuration
@@ -74,34 +89,20 @@ my-koda-app/
 import { defineConfig } from '@koda/core';
 
 export default defineConfig({
-  // Runtime detection is automatic, but can be overridden
-  runtime: 'auto', // 'bun' | 'deno' | 'edge' | 'auto'
+  // Orchestrated by @koda/core
+  runtime: 'auto', 
   
-  // Frontend engine configuration
+  // Handled by @koda/ui
   engines: {
-    default: 'zenith', // .koda files
+    default: 'zenith',
     react: { hydration: 'full' },
-    svelte: { hydration: 'compiled' },
-    qwik: { hydration: 'resumable' },
   },
   
-  // Security posture (applied globally)
-  security: {
-    rateLimit: { windowMs: 60_000, limit: 100 },
-    csp: { defaultSrc: ["'self'"] },
-    sanitize: true,
-  },
+  // Managed by @koda/dx
+  dx: { forensics: true },
   
-  // SEO defaults
-  seo: {
-    siteName: 'My Koda App',
-    defaultImage: '/og-image.png',
-  },
-  
-  // Content collections
-  content: {
-    collections: ['blog', 'docs'],
-  },
+  // Powering @koda/content
+  content: { collections: ['blog'] },
 });
 ```
 
@@ -513,7 +514,7 @@ Screen ErrorPage {
 ```typescript
 // lib/errorHandler.ts
 
-import { useErrorDX } from '@koda/core/dx';
+import { useErrorDX } from '@koda/dx';
 
 export const errorHandler: MiddlewareHandler = async (c, next) => {
   try {
@@ -759,7 +760,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 ```typescript
 // content/config.ts
 
-import { defineCollection, z } from '@koda/core/content';
+import { defineCollection, z } from '@koda/content';
 
 const blog = defineCollection({
   schema: z.object({
@@ -788,7 +789,7 @@ export const collections = { blog, docs };
 ```typescript
 // routes/blog/+page.server.ts
 
-import { getCollection } from '@koda/core/content';
+import { getCollection } from '@koda/content';
 
 export const load: PageServerLoad = async () => {
   const posts = await getCollection('blog');
@@ -823,7 +824,7 @@ export default defineConfig({
 
 ```koda
 import @koda/ui;
-import { t } from "@koda/ui";
+import { t } from "@koda/i18n";
 
 Screen About {
   Text(t("about.title"), style: Styles.H1);
@@ -1153,7 +1154,7 @@ Screen ProfileSettings {
 ```typescript
 // jobs/sendEmail.ts
 
-import { defineJob } from '@koda/core/jobs';
+import { defineJob } from '@koda/jobs';
 
 export const sendEmailJob = defineJob({
   name: 'send-email',
@@ -1203,7 +1204,7 @@ export const POST: RouteHandler = async (c) => {
 ```typescript
 // jobs/dailyDigest.ts
 
-import { defineCron } from '@koda/core/jobs';
+import { defineCron } from '@koda/jobs';
 
 export const dailyDigest = defineCron({
   name: 'daily-digest',
@@ -1260,7 +1261,7 @@ export default defineConfig({
 ```typescript
 // emails/welcome.tsx
 
-import { Email, Section, Text, Button } from '@koda/core/email';
+import { Email, Section, Text, Button } from '@koda/email';
 
 interface WelcomeEmailProps {
   name: string;
@@ -1301,7 +1302,7 @@ await koda.email.send({
 ```typescript
 // lib/payments.ts
 
-import { createPaymentProvider } from '@koda/core/payments';
+import { createPaymentProvider } from '@koda/payments';
 
 export const payments = createPaymentProvider({
   provider: 'stripe',
@@ -1672,7 +1673,7 @@ Screen OfflinePage {
 ```typescript
 // service-worker.ts
 
-import { precacheAndRoute, cleanupOutdatedCaches } from '@koda/core/sw';
+import { precacheAndRoute, cleanupOutdatedCaches } from '@koda/sw';
 
 // Precache static assets
 precacheAndRoute(self.__WB_MANIFEST);
@@ -2175,7 +2176,7 @@ Screen UsersList {
 ```typescript
 // routes/api/+docs.ts
 
-import { generateOpenAPI } from '@koda/core/openapi';
+import { generateOpenAPI } from '@koda/openapi';
 
 export const openapi = generateOpenAPI({
   info: {
@@ -2274,7 +2275,7 @@ koda db status
 ```typescript
 // migrations/001_create_users.ts
 
-import { sql } from '@koda/core/db';
+import { sql } from '@koda/db';
 
 export async function up(db) {
   await db.run(sql`
@@ -2401,7 +2402,7 @@ Screen Dashboard {
 ```typescript
 // lib/experiments.ts
 
-import { defineExperiment } from '@koda/core/experiments';
+import { defineExperiment } from '@koda/experiments';
 
 export const pricingExperiment = defineExperiment({
   name: 'pricing-page-v2',
@@ -2655,7 +2656,7 @@ Screen Home {
 ```typescript
 // plugins/my-plugin/index.ts
 
-import { definePlugin } from '@koda/core/plugin';
+import { definePlugin } from '@koda/plugins';
 
 export default definePlugin({
   name: 'my-plugin',

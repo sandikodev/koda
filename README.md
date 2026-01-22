@@ -102,21 +102,14 @@ Koda orchestrates five critical dimensions of application development to ensure 
 ```
 koda/
 ├── packages/
-│   ├── core/              @koda/core - The Agnostic Engine
-│   │   ├── src/
-│   │   │   ├── server/    koda() factory, security, SEO
-│   │   │   ├── cli/       Scaffolding engine (init, audit, evolve)
-│   │   │   ├── dx/        Developer experience (error diagnostics)
-│   │   │   ├── io/        Runtime detection, asset serving
-│   │   │   └── content/   MDX/Markdown collections engine
-│   │   └── package.json
-│   │
-│   └── ui/                @koda/ui - Zenith Design System
-│       ├── src/
-│       │   ├── primitives/  BentoCard, GradientCard, ZenithStage...
-│       │   ├── plugin.ts    vite-plugin-koda (.koda syntax parser)
-│       │   └── ZenithDesignDemo.tsx
-│       └── package.json
+│   ├── core/              @koda/core - The Kernel Engine (Routing, Factory, Security)
+│   ├── ui/                @koda/ui - Zenith Design System (DSL, Primitives, Hooks)
+│   ├── cli/               @koda/cli - Automation Engine (init, audit, evolve)
+│   ├── dx/                @koda/dx - Forensic Diagnostic Brain
+│   ├── content/           @koda/content - MDX & Collections Engine
+│   ├── db/                @koda/db - SQL & Migrations Orchestrator
+│   ├── realtime/          @koda/realtime - WebSocket & SSE Infrastructure
+│   └── plugins/           @koda/plugins - CLI & Core Plugin System
 │
 ├── examples/
 │   └── koda-web3-demo/    Decentralized deployment showcase
@@ -124,7 +117,8 @@ koda/
 └── docs/
     ├── PHILOSOPHY.md      Core principles
     ├── STRATEGY.md        Implementation roadmap
-    ├── KODA_SYNTAX.md     .koda DSL specification
+    ├── imagine/
+    │   └── FULLSTACK_VISION.md  The Complete Vision
     └── WEB3_VISION.md     Decentralized future
 ```
 
