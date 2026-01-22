@@ -1,4 +1,4 @@
-import { Signal, Computed } from '@koda/signals';
+import { Signal, Computed } from '../../signals/src/index';
 
 /**
  * ⚡ Koda Bench: The Performance Oracle
@@ -9,7 +9,7 @@ export async function measureSignals(iterations: number = 1000000) {
     console.log(`⚡ [Zenith Bench] Measuring Signal overhead (${iterations} iterations)...`);
 
     const base = new Signal(0);
-    const derived = new Computed(() => base.value * 2);
+    const derived = new Computed(() => base.value * 2, [base]);
 
     const start = performance.now();
     for (let i = 0; i < iterations; i++) {
@@ -32,4 +32,10 @@ export async function runCosmicHeatMap() {
         status: 'Optimal',
         latency: 'Sub-millisecond'
     };
+}
+
+// 🏁 Auto-run if executed directly
+if (import.meta.main) {
+    await measureSignals();
+    await runCosmicHeatMap();
 }

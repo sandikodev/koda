@@ -29,3 +29,6 @@ export const kodaBridge = new EngineBridge();
 
 export * from './Provider';
 export * from './Island';
+export { reactEngine } from './react';
+export { svelteEngine } from './svelte';
+export { qwikEngine } from './qwik';
