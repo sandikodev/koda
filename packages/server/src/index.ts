@@ -80,6 +80,10 @@ if (process.env.NODE_ENV !== 'production') {
         }
     });
 
+    kodaDX.get('/flight/history', (c) => {
+        return c.json(kodaContext.getHistory());
+    });
+
     kodaDX.get("/security", async (c) => {
         return c.json({
             status: "zenith",

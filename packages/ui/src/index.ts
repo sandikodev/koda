@@ -6,6 +6,7 @@ export * from './primitives/ZenithStage';
 export * from './utils';
 export { kodaPlugin } from './plugin';
 export { ZenithDesignDemo } from './ZenithDesignDemo';
+export * from './dx';
 export * from '@koda/signals';
 
 /**

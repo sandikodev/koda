@@ -12,12 +12,18 @@ export interface FlightContext {
 }
 
 const storage = new AsyncLocalStorage<FlightContext>();
+const history: FlightContext[] = [];
+const MAX_HISTORY = 50;
 
 export const kodaContext = {
     /**
      * Run a function within a flight context.
      */
     run<T>(ctx: FlightContext, fn: () => T): T {
+        if (process.env.NODE_ENV === 'development') {
+            history.unshift(ctx);
+            if (history.length > MAX_HISTORY) history.pop();
+        }
         return storage.run(ctx, fn);
     },
 
@@ -26,6 +32,13 @@ export const kodaContext = {
      */
     current(): FlightContext | undefined {
         return storage.getStore();
+    },
+
+    /**
+     * Get the history of flight contexts (Dev only)
+     */
+    getHistory(): FlightContext[] {
+        return history;
     },
 
     /**

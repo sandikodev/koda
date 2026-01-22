@@ -1,6 +1,6 @@
 use wasm_bindgen::prelude::*;
 use serde::{Deserialize, Serialize};
-use std::collections::HashSet;
+use std::collections::{HashSet, HashMap};
 
 #[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
 #[serde(tag = "type")]
@@ -29,20 +29,34 @@ pub struct Property {
     pub value: String,
 }
 
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
+pub struct CompilerConfig {
+    pub theme: ThemeConfig,
+}
+
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
+pub struct ThemeConfig {
+    pub colors: HashMap<String, String>,
+    pub spacing: HashMap<String, String>,
+    pub radius: HashMap<String, String>,
+}
+
 #[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub struct CompilerResult {
     pub ast: Option<ZenithNode>,
     pub code: String,
     pub css: String,
+    pub errors: Vec<String>,
 }
 
 /// Core Compilation Logic
-pub fn compile_logic(input: &str) -> CompilerResult {
+pub fn compile_logic(input: &str, config: Option<CompilerConfig>) -> CompilerResult {
     let mut parser = Parser::new(input);
     let mut ast = parser.parse();
+    let mut errors = Vec::new();
     
     let mut css_collector = HashSet::new();
-    transform_and_extract_css(&mut ast, &mut css_collector);
+    transform_and_extract_css(&mut ast, &mut css_collector, &config, &mut errors);
     
     let css = css_collector.into_iter()
         .map(|rule| rule)
@@ -53,16 +67,29 @@ pub fn compile_logic(input: &str) -> CompilerResult {
         ast: Some(ast),
         code: "// Zenith Generated Logic".to_string(),
         css,
+        errors,
     }
 }
 
 /// Recursive AST Transformation & CSS Extraction
-fn transform_and_extract_css(node: &mut ZenithNode, collector: &mut HashSet<String>) {
+fn transform_and_extract_css(
+    node: &mut ZenithNode, 
+    collector: &mut HashSet<String>, 
+    config: &Option<CompilerConfig>,
+    errors: &mut Vec<String>
+) {
     match node {
         ZenithNode::Container { properties, children, class_name, .. } => {
             let mut classes = Vec::new();
             for prop in properties {
                 if is_style_prop(&prop.name) {
+                    // Validation by Law
+                    if let Some(conf) = config {
+                        if !validate_property(&prop, conf) {
+                            errors.push(format!("Design Law Violation: Property '{}' with value '{}' is not defined in the design system.", prop.name, prop.value));
+                        }
+                    }
+
                     let class = format!("{}-{}", prop.name, prop.value.replace("'", "").replace("\"", ""));
                     let rule = format!(".{} {{ {}: {}; }}", class, prop.name, prop.value.replace("'", "").replace("\"", ""));
                     collector.insert(rule);
@@ -71,13 +98,20 @@ fn transform_and_extract_css(node: &mut ZenithNode, collector: &mut HashSet<Stri
             }
             *class_name = classes.join(" ");
             for child in children {
-                transform_and_extract_css(child, collector);
+                transform_and_extract_css(child, collector, config, errors);
             }
         }
         ZenithNode::Leaf { properties, class_name, .. } => {
             let mut classes = Vec::new();
             for prop in properties {
                 if is_style_prop(&prop.name) {
+                     // Validation by Law
+                    if let Some(conf) = config {
+                        if !validate_property(&prop, conf) {
+                            errors.push(format!("Design Law Violation: Property '{}' with value '{}' is not defined in the design system.", prop.name, prop.value));
+                        }
+                    }
+
                     let class = format!("{}-{}", prop.name, prop.value.replace("'", "").replace("\"", ""));
                     let rule = format!(".{} {{ {}: {}; }}", class, prop.name, prop.value.replace("'", "").replace("\"", ""));
                     collector.insert(rule);
@@ -90,6 +124,17 @@ fn transform_and_extract_css(node: &mut ZenithNode, collector: &mut HashSet<Stri
     }
 }
 
+fn validate_property(prop: &Property, config: &CompilerConfig) -> bool {
+    // Simplified validation: Check if value exists in theme maps
+    let val = prop.value.replace("'", "").replace("\"", "");
+    match prop.name.as_str() {
+        "color" | "background" => config.theme.colors.contains_key(&val),
+        "gap" | "padding" | "margin" => config.theme.spacing.contains_key(&val),
+        "radius" => config.theme.radius.contains_key(&val),
+        _ => true, // Other props like display/justify are allowed for now
+    }
+}
+
 fn is_style_prop(name: &str) -> bool {
     match name {
         "gap" | "padding" | "margin" | "background" | "color" | "radius" | "display" | "justify" | "align" => true,
@@ -97,7 +142,7 @@ fn is_style_prop(name: &str) -> bool {
     }
 }
 
-// --- Lexer & Parser Implementation (Same as before, with minor property fix) ---
+// --- Lexer & Parser Implementation (Same as before) ---
 
 #[derive(Debug, PartialEq, Clone)]
 enum Token {
@@ -225,9 +270,6 @@ impl Parser {
                 }
                 _ => {
                    let node = self.parse();
-                   if let ZenithNode::TextLiteral { value } = &node {
-                       if value == "Unknown" { self.advance(); continue; }
-                   }
                    children.push(node);
                 }
             }
@@ -245,8 +287,9 @@ impl Clone for Lexer {
 }
 
 #[wasm_bindgen]
-pub fn compile_zenith(input: &str) -> JsValue {
-    let result = compile_logic(input);
+pub fn compile_zenith(input: &str, config: JsValue) -> JsValue {
+    let config: Option<CompilerConfig> = serde_wasm_bindgen::from_value(config).ok();
+    let result = compile_logic(input, config);
     serde_wasm_bindgen::to_value(&result)
         .unwrap_or(JsValue::NULL)
 }
@@ -256,16 +299,25 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_css_extraction() {
-        let input = "Column { gap: '10'; padding: '20'; Text { value: 'Hi' } }";
-        let result = compile_logic(input);
+    fn test_theme_validation() {
+        let input = "Column { gap: '4'; padding: '99'; Text { value: 'Hi' } }";
         
-        assert!(result.css.contains(".gap-10 { gap: 10; }"));
-        assert!(result.css.contains(".padding-20 { padding: 20; }"));
+        let mut spacing = HashMap::new();
+        spacing.insert("4".to_string(), "1rem".to_string());
         
-        if let Some(ZenithNode::Container { class_name, .. }) = result.ast {
-            assert!(class_name.contains("gap-10"));
-            assert!(class_name.contains("padding-20"));
-        }
+        let config = CompilerConfig {
+            theme: ThemeConfig {
+                colors: HashMap::new(),
+                spacing,
+                radius: HashMap::new(),
+            }
+        };
+
+        let result = compile_logic(input, Some(config));
+        
+        // Gap '4' should be valid, padding '99' should be an error
+        assert_eq!(result.errors.len(), 1);
+        assert!(result.errors[0].contains("padding"));
+        assert!(result.errors[0].contains("'99'"));
     }
 }

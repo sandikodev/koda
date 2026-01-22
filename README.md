@@ -1,3 +1,5 @@
+![Koda Zenith Epic Hero](assets/images/zenith_hero.png)
+
 # 💎 Koda: The Universal Zenith Metaframework 🛰️
 
 > *"Born from the need for speed and precision in Margin Pro. Built for the future of the web."*
