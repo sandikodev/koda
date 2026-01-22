@@ -3130,6 +3130,107 @@ export class UserController {
 
 ---
 
+---
+
+## 🌟 The Fullstack Anatomy: A Real-World Feature
+
+To visualize how Koda's "Dual Personality" and "Modular Ecosystem" come together, let's look at a vertical slice of a **Merchant Analytics** feature.
+
+### 1. The Persistence Layer (`@koda/db`)
+First, we define the schema. Koda uses Drizzle-style definitions but optimized for the Edge.
+
+```typescript
+// db/schema/analytics.ts
+import { sqliteTable, text, integer } from '@koda/db';
+
+export const dailyMetrics = sqliteTable('daily_metrics', {
+  id: text('id').primaryKey(),
+  merchantId: text('merchant_id').notNull(),
+  revenue: integer('revenue'),
+  date: text('date'),
+});
+```
+
+### 2. The Logic Layer (`@koda/server` - Enterprise Mode)
+We use the **Service Container** to encapsulate complex business logic, keeping our routes clean.
+
+```typescript
+// lib/services/AnalyticsService.ts
+import { Service, Inject } from '@koda/server/di';
+import { koda } from '@koda/server';
+
+@Service()
+export class AnalyticsService {
+  constructor(@Inject('DB') private db: Database) {}
+
+  async getMerchantPerformance(id: string) {
+    // Forensic logging built-in
+    koda.log.info('Calculating metrics', { merchantId: id });
+    
+    return this.db.query.dailyMetrics.findMany({
+      where: (t, { eq }) => eq(t.merchantId, id)
+    });
+  }
+}
+```
+
+### 3. The Gateway Layer (`proxy.ts` & Routes)
+The **Proxy** ensures security, while the **Controller** handles the request dispatch.
+
+```typescript
+// routes/api/analytics/+controller.ts
+import { Controller, Get, UseGuard } from '@koda/server/mvc';
+
+@Controller('/api/analytics')
+export class AnalyticsController {
+  @Get('/:merchantId')
+  @UseGuard(MerchantOwnerGuard)
+  async getStats(ctx, @Inject() service: AnalyticsService) {
+    const data = await service.getMerchantPerformance(ctx.params.merchantId);
+    return ctx.json({ data, meta: { served_by: 'Koda Edge' } });
+  }
+}
+```
+
+### 4. The Experience Layer (`@koda/ui` & `.koda`)
+Finally, the **Zenith DSL** consumes the data. Note how it mixes declarative UI with powerful hooks.
+
+```koda
+// routes/dashboard/+page.koda
+import @koda/ui;
+import { useQuery } from '@koda/ui';
+
+Screen MerchantDashboard {
+  // Client-side data fetching from our API
+  const { data: stats } = useQuery(['analytics'], () => 
+    fetch('/api/analytics/me').then(r => r.json())
+  );
+
+  Layout.Bento {
+    // Loading states handled automatically by Zenith
+    when (stats.isLoading) {
+      Skeleton { height: "200px"; span: 3; }
+    }
+
+    GradientCard {
+      title: "Today's Revenue";
+      // Formatted data injection
+      content: Text(stats.revenue, style: Styles.H1);
+      variant: primary;
+    }
+
+    Chart {
+      data: stats.history;
+      type: "area";
+    }
+  }
+}
+```
+
+> **The Insight**: Notice how the code flows from the structured backend (Enterprise) to the declarative frontend (Zenith). Koda handles the "Hard Stuff" (DI, Security, DB) so you can focus on the "Beautiful Stuff" (UI, Charts, Experience).
+
+---
+
 ## 🏛️ The "Standard Chassis" Philosophy
 
 ### Architecture vs. Design
