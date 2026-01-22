@@ -3546,6 +3546,8 @@ function getProfile(id) {
 }
 ```
 > **Mind Blowing**: Using Koda feels like coding against `localStorage`, but it's actually an ACID-compliant distributed SQL database spanning 300+ Cities.
+>
+> **Technical Reality**: Implemented via **WASM-SQLite** in the browser + **CRDTs (Conflict-free Replicated Data Types)** for merge logic + **WebSockets** for delta updates. Examples: *Linear, ElectricSQL, Replicache*.
 
 ### 2. Time-Travel Runtimes (Temporal Fluidity)
 *The Fundamental Problem:* **The Versioning Paradox.** You deploy v2.0. Users currently active on v1.0 click a button. The API fails because the backend changed. You force a refresh. You disrupt the user.
@@ -3557,6 +3559,8 @@ Koda Server retains **Ghost Closures** of previous deployments active *only* for
 - **User B** (just loaded app) -> clicks button -> Hits **v2.0** Live Runtime (Success).
 
 > **Mind Blowing**: Your backend exists in multiple timelines simultaneously. Zero-Downtime is a lie; this is **Negative-Downtime**.
+>
+> **Technical Reality**: Achieved by **Immutable Edge Deployments**. Every deploy gets a unique hash. The client cookie sends `X-Koda-Version: v1.0`, and the **Edge Router** directs them to the specific frozen Lambda/Worker for that version.
 
 ### 3. Self-Evolving Code (Polymorphic Optimizers)
 *The Fundamental Problem:* **Static Optimization.** We optimize bundles for the "Average User." But users aren't averages.
@@ -3566,6 +3570,8 @@ The Koda Compiler runs **In Production**. It watches live traffic patterns.
 - If it sees 90% of mobile users click "Cart" after "Profile", it **Rewrites the Bundle in Real-Time** to inline the Checkout Code directly into the Profile chunk.
 
 > **Mind Blowing**: The framework is *alive*. It rewrites its own source code 1,000 times a day to adapt to how humans are actually using it.
+>
+> **Technical Reality**: Powered by **RUM (Real User Metrics)** feeding a **CI/CD Loop**. Analytics detect hot paths -> triggers a partial webpack/vite build -> updates the **Edge Cache Rules** to serve the new specialized bundle. Examples: *Guess.js (Google), Facebook Prepack*.
 
 ---
 
