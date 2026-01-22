@@ -81,7 +81,30 @@ This runs at native speed on V8.
 
 ---
 
-## 🛡️ The Security Fortress (Internals)
+## � The Web3 Bridge: Protocol Agnosticism
+
+Koda believes that **Web3 is just another Protocol**. The Kernel prepares for the decentralized future by treating Cryptography and Identity as first-class primitives.
+
+### 1. Unified Cryptographic Runtime
+Node.js has `crypto` (legacy), Browser has `SubtleCrypto`, Bun has its own optimizations. Koda Kernel provides a **Unified Crypto Interface** that includes modern elliptic curves (Ed25519, secp256k1) needed for blockchain interactions, ensuring they run natively on the Edge without heavy polyfills.
+
+### 2. Identity Abstraction (SIWE Ready)
+In Koda, a `User` is not necessarily a row in a Postgres table. The Kernel uses an abstract `Identity` interface.
+-   **Web2**: `type Identity = EmailAddress`
+-   **Web3**: `type Identity = PublicKey (0x...)`
+
+The `@koda/auth` module includes **Signature Verification Middleware** out of the box. You can protect a route with `@Guard.Signature()` just as easily as `@Guard.Jwt()`. This enables "Login with Wallet" without 3rd party auth provider lock-in.
+
+### 3. Content-Addressed Storage (CAS) Adapters
+The Storage Interface (`blob.put()`, `blob.get()`) is designed to support **IPFS** and **Arweave** natively.
+-   **S3 Adapter**: Returns a URL (Location-based).
+-   **IPFS Adapter**: Returns a CID (Content-based).
+
+The Kernel handles the resolution difference, allowing you to build **Hybrid Dapps** (Centralized API, Decentralized Storage) without changing your business logic.
+
+---
+
+## �🛡️ The Security Fortress (Internals)
 
 ### 1. Sovereign Session Encryption
 Koda does not trust cookies.
