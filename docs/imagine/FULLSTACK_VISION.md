@@ -3051,6 +3051,128 @@ export default defineChassisExtension({
 
 ---
 
+---
+
+## 🎨 Design Token Orchestration
+
+### Semantic Theme Definition
+
+```typescript
+// koda.config.ts
+
+export default defineConfig({
+  ui: {
+    theme: {
+      tokens: {
+        colors: {
+          zenith: {
+            primary: '#4F46E5',
+            secondary: '#7C3AED',
+            accent: '#F43F5E',
+            surface: '#0F172A',
+          }
+        },
+        spacing: {
+          bento: '1.5rem',
+        }
+      },
+      // Automatic dark mode orchestration
+      darkMode: 'class',
+    }
+  }
+});
+```
+
+### Usage in Custom Styles
+
+```typescript
+// lib/styles.ts
+
+import { tokens } from '@koda/ui';
+
+export const Styles = {
+  H1: tokens.text('4xl', 'bold', 'zenith.primary'),
+  Card: tokens.container('rounded-xl', 'bg-surface', 'border-zenith-secondary'),
+};
+```
+
+---
+
+## ♿ Accessibility (A11y) & Inclusive Design
+
+### Built-in A11y Standards
+
+```koda
+import @koda/ui;
+
+Screen AccessiblePage {
+  // Zenith UI primitives are ARIA-aware by default
+  Modal {
+    title: "Settings";
+    role: "dialog";
+    ariaLabel: "Application Settings";
+    
+    content: Column {
+      Text("Focus is automatically trapped here", style: Styles.Body);
+      
+      // High-contrast awareness
+      Button("Save Changes", variant: primary);
+    }
+  }
+}
+```
+
+### A11y Auditing
+
+```bash
+# Run accessibility audit
+koda audit --a11y
+
+# Output:
+# [PASS] ScreenReader: All images have alt text
+# [PASS] Contrast: Color ratios meet WCAG AA standards
+# [WARN] Keyboard: 1 custom component missing aria-label
+```
+
+---
+
+## ⚡ Edge-Native Lifecycle
+
+### The Distributed Request Flow
+
+1.  **Global Routing**: Request hits the nearest PoP (Point of Presence).
+2.  **Environment Sync**: Koda automatically synchronizes `locals`, `env`, and `session`.
+3.  **Agnostic Dispatch**: The logic runs on **Bun/Deno/Edge** without modification.
+4.  **Streaming Hydration**: HTML is streamed to the browser as it's rendered.
+
+```typescript
+// Any middleware/handler is edge-native
+export const middleware = async (c, next) => {
+  const region = c.req.header('x-edge-region');
+  c.set('isNearUser', true);
+  await next();
+};
+```
+
+---
+
+## 🧠 The Cultural Engine: The Meme of Assimilation
+
+Koda is not just code; it is a **Meme of Assimilation**. It represents the critical maturity of the web developer—one who has moved beyond the "Framework Wars" and embraced a **Meritocratic Engineering** mindset.
+
+### 1. Proof of Assimilation
+Koda proves that SvelteKit's ergonomics, Astro's performance, and Laravel's structure are not mutually exclusive. They are **compatible cultural units** (memes) that can be synthesized into a single, cohesive chassis.
+
+### 2. Pragmatic effectiveness (**Tepat Guna**)
+We don't build because it's "new" or "hyped." We build because it's **effective**. Koda teaches beginners to be **critical, not dogmatic**. To be **kredibel, not nihilistik**.
+
+### 3. The End of Dogma
+By providing a standard, institutional chassis, we free the developer to focus on **Creative Paint**. No more adu framework; only merit-based engineering.
+
+---
+
+<div align="center">
+
 ## 🎯 Summary: The Complete Developer Journey
 
 | Phase | Koda Provides |
