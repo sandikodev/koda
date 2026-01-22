@@ -15,7 +15,7 @@ This document describes the **ideal fullstack Koda project** structure. Koda is 
 
 ## 📁 The Institutional Anatomy: Codebase Structure
 
-This structure represents a **fully mature Koda application** utilizing both Functional (Frontend) and Enterprise (Backend) capabilities.
+This structure represents a **fully mature Koda application**, showing how Functional (Simple) and Enterprise (Complex) patterns coexist in the same codebase.
 
 ```bash
 my-koda-app/
@@ -24,12 +24,22 @@ my-koda-app/
 ├── package.json
 │
 ├── content/                   # 📚 The Narrative Engine (CMS)
-│   ├── blog/                  # Markdown/MDX content collections
+│   ├── blog/
+│   │   ├── first-post.md      # Standard Markdown
+│   │   └── second-post.mdx    # Interactive MDX
 │   └── docs/
+│       └── intro.md
 │
 ├── routes/                    # 🛣️ The Routing Fabric (SvelteKit-style)
 │   ├── +layout.koda          # 🎨 Root Institutional Layout
 │   ├── +page.koda            # Landing Page (Zenith DSL)
+│   ├── +page.server.ts       # Server-only Data Loader
+│   │
+│   ├── blog/
+│   │   ├── +page.koda        # Blog Listing
+│   │   └── [slug]/
+│   │       ├── +page.koda    # Blog Detail
+│   │       └── +page.server.ts
 │   │
 │   ├── app/                   # 🔒 Application Domain
 │   │   ├── +layout.server.ts # Data Loaders (Functional)
@@ -39,14 +49,20 @@ my-koda-app/
 │   │       └── +page.svelte  # Svelte Island (Performance)
 │   │
 │   └── api/                   # ⚡ The Gateway Interface
+│       ├── auth/
+│       │   └── +server.ts    # Simple Functional Auth
 │       ├── users/
 │       │   ├── +server.ts    # Functional Route Handler
 │       │   └── +controller.ts # 🏛️ Enterprise Controller (Optional)
 │       └── webhooks/
 │           └── +job.ts       # Background Job Definition
 │
-├── lib/                       # � The Business Core (Enterprise Layer)
-│   ├── services/              # 🏛️ Service Container (DI)
+├── lib/                       # 🧠 The Business Core (Mixed Mode)
+│   ├── db.ts                  # ⚡ Simple DB Client (for Functional Mode)
+│   ├── auth.ts                # ⚡ Simple Auth Logic
+│   ├── schemas.ts             # ⚡ Shared Zod Schemas
+│   │
+│   ├── services/              # 🏛️ Service Container (Enterprise Mode)
 │   │   ├── AuthService.ts
 │   │   └── BillingService.ts
 │   ├── contracts/             # 📜 Interfaces & DTOs
@@ -63,16 +79,22 @@ my-koda-app/
 │   └── seed.ts                # Data Seeding Script
 │
 ├── components/                # 🎨 The Design System (@koda/ui)
-│   ├── tokens/                # Design Tokens (Colors, Typography)
-│   ├── primitives/            # Reusable Bento/Zenith Atoms
-│   └── islands/               # Framework-specific Islands
+│   ├── ui/                    # 🎨 Project-Specific "Paint"
+│   │   ├── Header.koda
+│   │   └── Footer.koda
+│   ├── tokens/                # 📏 Design Tokens (Colors, Typography)
+│   ├── primitives/            # 🧱 Reusable Bento/Zenith Atoms
+│   └── islands/               # 🏝️ Framework-specific Islands
+│       ├── SearchBar.tsx
+│       └── Chart.svelte
 │
 └── static/                    # 📁 Public Assets (Edge Cached)
     ├── favicon.ico
-    └── robots.txt
+    ├── robots.txt
+    └── images/
 ```
 
-> **Insight**: Notice the harmony. `routes/` handles the *Traffic* (HTTP/UI), `lib/` handles the *Logic* (Business Rules), and `db/` handles the *Memory*. The `proxy.ts` stands guard at the door.
+> **Insight**: Notice the harmony. You can start with simple `lib/db.ts` and `+server.ts` (Functional Mode), and gradually evolve to `lib/services/` and `+controller.ts` (Enterprise Mode) without changing your directory structure.
 
 ## 📦 The Zenith Ecosystem: Modular Responsibility
 
