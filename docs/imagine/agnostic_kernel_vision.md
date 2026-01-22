@@ -38,6 +38,11 @@ class BunAdapter implements ServerAdapter {
   createContext(req: Request) { ... } // Uses native Request
 }
 
+// Deno Adapter
+class DenoAdapter implements ServerAdapter {
+  createContext(req: Request) { ... } // Uses Deno.serve & Deno.env
+}
+
 // Node Adapter
 class NodeAdapter implements ServerAdapter {
   createContext(req: IncomingMessage) { ... } // Converts Node stream to Web Stream
