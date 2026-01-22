@@ -154,9 +154,23 @@ return <span on:qvisible={...}>{counter.value}</span>
 
 > **The Insight**: Zenith is the "Babel of UI Frameworks." It doesn't have a runtime opinion; it adopts the opinion of the engine it targets.
 
+### 4. The HMR Challenge: Why WASM is Mandatory
+You are absolutely right. Parsing a custom DSL like `.koda` (which has distinct Flutter-like semantics) is **NOT** a simple Regex job. It requires a full **Abstract Syntax Tree (AST)** transformation.
+
+If we did this in JavaScript (like Babel), your HMR would take 500ms+. That breaks the "Flow State".
+*   **The Solution**: The Zenith Compiler is written in **Rust** (part of `@koda/core-wasm`).
+*   **The Flow**:
+    1.  Vite detects `Dashboard.koda` change.
+    2.  Vite sends string to **Rust Core** (WASM).
+    3.  Rust parses AST -> Extracts Static HTML -> Generates React/Qwik Code.
+    4.  Rust returns compiled JS to Vite in **<10ms**.
+    5.  Vite HMR updates the browser.
+
+This is the only way to marry "Flutter DX" with "Web Speed".
+
 ---
 
-## �🧘 Universal Reactivity: The Signal Bus
+## 🧘 Universal Reactivity: The Signal Bus
 
 Zenith introduces a **Unified Signal Protocol** that creates a wormhole between frameworks.
 
