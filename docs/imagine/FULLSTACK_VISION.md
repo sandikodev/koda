@@ -75,9 +75,14 @@ Koda is organized into specialized packages to ensure a strict **Separation of C
 | **`@koda/cli`** | Automation | Scaffolding, `init`, `audit`, `evolve`, `generate`. |
 | **`@koda/dx`** | Diagnostics | Forensic Brain, Error Layouts, Source-Code Parsing. |
 | **`@koda/content`**| Orchestration | MDX Engine, Content Collections, Zod validation. |
-| **`@koda/db`** | Persistence | Migrations, Seeding, Drizzle/SQL Orchestration. |
+| **`@koda/db`** | Persistence | Migrations, Seeding, SQL Orchestration. |
 | **`@koda/jobs`** | Background | Job Queues, Workers, Cron Scheduling. |
 | **`@koda/realtime`**| Connectivity | WebSockets, SSE, Pub/Sub. |
+| **`@koda/payments`**| Monetization | Stripe Orchestration, Pricing Engine. |
+| **`@koda/email`** | Communication | React Email, Transactional & Bulk Sending. |
+| **`@koda/i18n`** | Localization | Type-safe translation & Locale detection. |
+| **`@koda/sw`** | Offline | Service Worker & PWA Infrastructure. |
+| **`@koda/plugins`**| Extensibility | CLI & Core Ecosystem Plugin System. |
 
 ---
 
@@ -3186,7 +3191,7 @@ Koda is not just code; it is a **Meme of Assimilation**. It represents the criti
 ### 1. Proof of Assimilation
 Koda proves that SvelteKit's ergonomics, Astro's performance, and Laravel's structure are not mutually exclusive. They are **compatible cultural units** (memes) that can be synthesized into a single, cohesive chassis.
 
-### 2. Pragmatic effectiveness (**Tepat Guna**)
+### 2. Pragmatic Effectiveness (**Tepat Guna**)
 We don't build because it's "new" or "hyped." We build because it's **effective**. Koda teaches beginners to be **critical, not dogmatic**. To be **kredibel, not nihilistik**.
 
 ### 3. The End of Dogma
@@ -3218,7 +3223,7 @@ By providing a standard, institutional chassis, we free the developer to focus o
 | **Testing** | Unit, integration, E2E |
 | **CI/CD** | Preview deploys, zero-downtime |
 | **Production** | Multi-region, auto-scaling |
-| Observability | Logging, tracing, errors |
+| **Observability** | Logging, tracing, errors |
 | **Philosophy** | Meritocratic Synthesis, Non-dogmatic, Beyond Framework Wars |
 
 ---

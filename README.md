@@ -102,17 +102,18 @@ Koda orchestrates five critical dimensions of application development to ensure 
 ```
 koda/
 ├── packages/
-│   ├── core/              @koda/core - The Kernel Engine
-│   │   └── src/server/    koda() factory, security, SSR
-│   ├── ui/                @koda/ui - Zenith Design System
-│   │   └── src/           .koda DSL, BentoCard, Motion...
-│   ├── cli/               @koda/cli - Automation Engine
-│   │   └── src/cli/       init, audit, evolve, scaffolding
+│   ├── core/              @koda/core - The Kernel (Routing, Factory, Security)
+│   ├── ui/                @koda/ui - The Interface (DSL, Primitives, Hooks)
+│   ├── cli/               @koda/cli - Automation (init, audit, evolve)
 │   ├── dx/                @koda/dx - Forensic Diagnostic Brain
-│   │   └── src/dx/        Source-sync, stack parsing, layout
 │   ├── content/           @koda/content - MDX & Collections Engine
 │   ├── db/                @koda/db - SQL & Migrations Orchestrator
 │   ├── realtime/          @koda/realtime - WebSocket & SSE Infrastructure
+│   ├── jobs/              @koda/jobs - Background Queues & Tasks
+│   ├── payments/          @koda/payments - Stripe & Pricing Engine
+│   ├── email/             @koda/email - React Email Infrastructure
+│   ├── i18n/              @koda/i18n - Localization Orchestrator
+│   ├── sw/                @koda/sw - Service Worker & PWA Core
 │   └── plugins/           @koda/plugins - CLI & Core Plugin System
 │
 ├── examples/
