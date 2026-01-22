@@ -10,7 +10,11 @@ This directory contains the modular blueprint for the Koda framework.
 *   [00_manifesto.md](./00_manifesto.md) - Vision & Core Philosophy.
 *   [01_project_structure.md](./01_project_structure.md) - The Institutional Anatomy.
 *   [02_configuration.md](./02_configuration.md) - `koda.config.ts`.
-*   [03_core_concepts.md](./03_core_concepts.md) - Zenith DSL, API Routes, Signals, CLI.
+*   [03_core_concepts.md](./03_core_concepts.md) - General Concepts.
+
+#### 🧠 Deep Architecture Dives (Must Read)
+*   **[🎨 Zenith UI Vision](./zenith_ui_vision.md)** - The Declarative Frontend Engine (.koda).
+*   **[⚙️ Agnostic Kernel Vision](./agnostic_kernel_vision.md)** - The Backend Engine & Adapters.
 *   [04_foundation_features.md](./04_foundation_features.md) - Auth, DB, Env, Testing.
 *   [05_gateway_lifecycle.md](./05_gateway_lifecycle.md) - Proxy & Edge Lifecycle.
 *   [06_data_and_services.md](./06_data_and_services.md) - Content, Uploads, Jobs, Email, Payments.
