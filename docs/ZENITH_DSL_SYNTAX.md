@@ -60,4 +60,4 @@ We will split the repository to:
 - `packages/koda-core`: The Engine (Hono, Server, CLI, RPC).
 - `packages/koda-ui`: The Chassis (Headless Components, Layout Primitives, The .koda Runtime).
 
-Margin Pro will import from `@koda/ui` and apply its own "MarginProTheme".
+Applications will import from `@koda/ui` and apply its own "CustomTheme".

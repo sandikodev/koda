@@ -2,8 +2,6 @@
 
 # 💎 Koda: The Universal Zenith Metaframework 🛰️
 
-> *"Born from the need for speed and precision in Margin Pro. Built for the future of the web."*
-
 **Koda** is the next-generation fullstack metaframework that harmonizes the most advanced development paradigms into a single, **non-destructive synergy**. It combines the ergonomics of **Elysia**, the power of **Hono/Nest**, the visibility of **Astro**, the consistency of **Flutter**, and the structure of **Laravel**—all running natively on **Bun/Deno** runtimes.
 
 ```

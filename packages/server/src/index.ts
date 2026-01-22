@@ -127,13 +127,22 @@ function createKoda<T extends Env = any, S extends Schema = any, BasePath extend
         return await kodaContext.run({
             requestId,
             startTime,
-            metadata: {}
+            metadata: {
+                method: c.req.method,
+                url: c.req.url
+            }
         }, next);
     });
 
     if (process.env.NODE_ENV !== 'production') {
         app.route('/api/framework/dx', kodaDX);
     }
+
+    // Integrated Meta-Router Implementation
+    app.onError((err, c) => {
+        kodaContext.log("Institutional Route Error:", err.message);
+        return c.json({ error: "Zenith Engine Exception", message: err.message }, 500);
+    });
 
     return app;
 }

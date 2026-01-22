@@ -1,12 +1,11 @@
 # The Koda Core Philosophy: Universal Zenith Synthesis 🌌
 
-> *"Born from the need for speed and precision in Margin Pro. Built for the future of the web."*
 
 **Koda Core** represents the culmination of performance and ergonomics. It is not just another framework; it is a **Meta-Orchestrator** that bridges the gap between institutional stability and Edge-native innovation. We believe that to deliver truly premium digital products, high-fidelity **UI/UX**, ergonomic **DX**, and agnostic **DevOps** must work in a non-destructive harmony.
 
 ## 核心 (The Core Pillars)
 
-These foundations were forged in the production fires of Margin Pro and remain the non-negotiable DNA of Koda Core:
+These foundations represent the non-negotiable DNA of Koda Core:
 
 ### 1. SSR-First & "Two-World" Safety
 We bridge the gap between the **Server (Bun/Hono)** and the **Client (React/Svelte/Qwik)**. 
