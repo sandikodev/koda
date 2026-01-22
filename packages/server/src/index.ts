@@ -7,6 +7,8 @@ import {
     kodaStatic,
     kodaSanitizer,
     kodaProtect,
+    kodaContext,
+    kodaDI,
     KodaSEO,
     kodaSEOMiddleware,
     type KodaSEOConfig,
@@ -107,10 +109,23 @@ export interface KodaFactory {
     };
     protect(data: any): any;
     readonly env: KodaEnv;
+    readonly di: typeof kodaDI;
 }
 
 function createKoda<T extends Env = any, S extends Schema = any, BasePath extends string = "/">() {
     const app = new Hono<T, S, BasePath>();
+
+    // 0. Stage Zenith: Flight Recorder (Context Tracing)
+    app.use("*", async (c, next) => {
+        const requestId = crypto.randomUUID();
+        const startTime = Date.now();
+
+        return await kodaContext.run({
+            requestId,
+            startTime,
+            metadata: {}
+        }, next);
+    });
 
     if (process.env.NODE_ENV !== 'production') {
         app.route('/api/framework/dx', kodaDX);
@@ -159,6 +174,12 @@ koda.seo = (config: KodaSEOConfig) => {
 
 Object.defineProperty(koda, 'env', {
     get: () => getKodaEnv(),
+    enumerable: true,
+    configurable: false
+});
+
+Object.defineProperty(koda, 'di', {
+    get: () => kodaDI,
     enumerable: true,
     configurable: false
 });
