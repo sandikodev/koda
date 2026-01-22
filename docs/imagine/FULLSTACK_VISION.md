@@ -738,7 +738,7 @@ The `proxy.ts` serves as the first line of intelligence, combining SvelteKit's *
 ```typescript
 // proxy.ts
 
-import { handle, next, redirect } from '@koda/server';
+import { handle, next, redirect, koda } from '@koda/server';
 
 /**
  * The Zenith Gateway (Inspired by Next.js 16 Proxy)
@@ -746,8 +746,9 @@ import { handle, next, redirect } from '@koda/server';
  * - Architectural Clarity: Explicit proxying before dispatch
  */
 export default handle(async ({ event, resolve }) => {
-  // 1. Edge-first Interception
+  // 1. Edge-first Interception & ID Tracing
   const start = Date.now();
+  event.locals.requestId = crypto.randomUUID();
   
   // 2. Syntactic Sugar Guards
   if (event.url.pathname.startsWith('/app') && !event.locals.session) {
@@ -758,9 +759,19 @@ export default handle(async ({ event, resolve }) => {
   const response = await resolve(event);
   
   // 4. Institutional Hardening
+  // We apply the standard chassis security headers automatically
+  const securityHeaders = koda.security();
+  for (const [key, value] of Object.entries(securityHeaders)) {
+     response.headers.set(key, value);
+  }
+
+  // 5. Forensic Logging & Metrics
   response.headers.set('X-Proxy-Engine', 'Koda Zenith');
   response.headers.set('X-Response-Time', `${Date.now() - start}ms`);
+  response.headers.set('X-Request-ID', event.locals.requestId);
   
+  console.log(`${event.request.method} ${event.url.pathname} - ${Date.now() - start}ms`);
+
   return response;
 });
 ```
