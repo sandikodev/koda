@@ -3480,51 +3480,21 @@ export const middleware = async (c, next) => {
 
 ---
 
-## 🛡️ The Pragmatic Revolution: Solving the "Invisible" Plagues
+## 🗺️ The Roadmap to Reality: Phased Evolution
 
-You asked for something "Concrete yet Mind-Blowing." This is it. Koda solves the **Invisible Problems** that plague every developer—usage frictions we've blindly accepted as "just how web dev works."
+Koda acknowledges that "Mind-Blowing" can be "Overwhelming." To democratize these powerful concepts, we structure Koda's rollout in **Three Distinct Phases**. Start where you are; evolve when you're ready.
 
-### 1. The Plague: "The Divergence of Truth" (Schema Drift)
-**The Invisible Problem**: You rename a database column from `name` to `full_name`.
-- *The Pain*: You assume you fixed it, but the API response type is manual `interface User`, so it doesn't break. The Frontend Form validation is `Yup`, separate from DB. Your app crashes in production because the layers **lied to each other**.
-- *The Reality*: We spend 30% of our lives syncing types between DB, API, and UI.
+| Phase | Name | Focus | Status |
+| :--- | :--- | :--- | :--- |
+| **1** | **The Standard Chassis** | Concrete, Functional, Enterprise-Ready. (Think: SvelteKit + Laravel). | **Ready Now** |
+| **2** | **The Event Horizon** | Experimental Modules. (Think: Telepathy, Poly-Cloud). | **Zenith Labs** |
+| **3** | **The Singularity** | Physics-Breaking Architecture. (Think: Holographic State). | **Alpha Research** |
 
-**The Koda Solution: Isomorphic Schema Propagation.**
-In Koda, **The Database Definition IS The Source of Truth.**
-If you change `users.name` to `users.fullName` in your schema:
-1.  The SQL Migration is auto-generated.
-2.  The API Response Type automatically breaks.
-3.  The Frontend `useQuery<User>` type automatically breaks.
-4.  The `<Form>` Zod Validation automatically breaks.
-5.  **Your IDE turns red everywhere immediately.**
-
-> **Mind Blowing**: You can refactor your entire database structure with the confidence of a compiled language. No more "I hope I caught all the references."
-
-### 2. The Plague: "The Connectivity Lie" (Flakiness)
-**The Invisible Problem**: We code on `localhost` (0ms latency, 100% uptime). Real users are on trains with spotty 4G.
-- *The Pain*: A user clicks "Save". The tunnel enters. The request fails. The UI creates a "Zombie State" or a generic error. The user loses data. They rage-quit.
-
-**The Koda Solution: Resilient Mutation Queues.**
-Koda assumes the network is **Broken by Default**.
-When you call `useMutation(saveNote)`:
-1.  **Optimistic Update**: The UI updates instantly (0ms).
-2.  **Persisted Queue**: The mutation request is serialized into `IndexedDB`.
-3.  **Background Sync**: If the network is dead, the Service Worker holds it.
-4.  **Auto-Replay**: When the connection restores, Koda replays the mutation and reconciles the ID.
-
-```typescript
-// It looks like a standard hook, but it's an offline-first sync engine.
-const { mutate } = useMutation({
-  action: actions.saveNote,
-  strategy: 'queue-and-sync' // The magic line
-});
-```
-
-> **Mind Blowing**: Your web app feels as robust as a native mobile app. It works on a plane, in a tunnel, or on flaky Wi-Fi, without you writing a single line of `localStorage` sync logic.
+> **The Guarantee**: Phase 1 will *always* be stable. Phases 2 & 3 are strict opt-ins. You never inherit "Sakit Jiwa" complexity unless you explicitly ask for it.
 
 ---
 
-## 🔮 The Event Horizon: Experimental Physics
+## 🔮 Phase 2: The Event Horizon (Experimental Physics)
 
 Ready to feel "Sakit Jiwa" (Mind-Blown)? Koda isn't just catching up to 2024; it's pulling 2030 into the present. These are the experimental modules available in the **Zenith Labs** channel.
 
@@ -3568,7 +3538,7 @@ koda chronos replay session_8x92nm --visual
 
 ---
 
-## 🤯 The Singularity: Breaking the Fundamental Laws
+## 🤯 Phase 3: The Singularity (Breaking Physics)
 
 You asked for something "Truly Sakit Jiwa." Here it is. Koda solves **Three Fundamental Constraints** of the web that most developers don't even realize are problems because they've accepted them as "Physics."
 
