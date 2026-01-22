@@ -102,7 +102,8 @@ Koda orchestrates five critical dimensions of application development to ensure 
 ```
 koda/
 ├── packages/
-│   ├── core/              @koda/core - The Kernel (Routing, Factory, Security)
+│   ├── core/              @koda/core - The Kernel (Agnostic Foundation, Types)
+│   ├── server/            @koda/server - The Engine (Runtime, Factory, SSR)
 │   ├── ui/                @koda/ui - The Interface (DSL, Primitives, Hooks)
 │   ├── cli/               @koda/cli - Automation (init, audit, evolve)
 │   ├── dx/                @koda/dx - Forensic Diagnostic Brain

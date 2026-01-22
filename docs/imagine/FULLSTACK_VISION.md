@@ -70,7 +70,8 @@ Koda is organized into specialized packages to ensure a strict **Separation of C
 
 | Package | Responsibility | Role |
 | :--- | :--- | :--- |
-| **`@koda/core`** | The Kernel | Factory (`koda()`), Routing, Middleware, Security. |
+| **`@koda/core`** | The Kernel | Agnostic Foundation, Shared Types, Internal Contracts. |
+| **`@koda/server`**| The Engine | Server Factory (`koda()`), SSR, Adapters (Bun/Edge). |
 | **`@koda/ui`** | The Interface | `.koda` DSL, Primitives (Bento), Client Hooks, State. |
 | **`@koda/cli`** | Automation | Scaffolding, `init`, `audit`, `evolve`, `generate`. |
 | **`@koda/dx`** | Diagnostics | Forensic Brain, Error Layouts, Source-Code Parsing. |
@@ -211,7 +212,7 @@ Screen Home {
 ```typescript
 // Server-side data loader for homepage
 
-import type { PageServerLoad } from '@koda/core';
+import type { PageServerLoad } from '@koda/server';
 import { db } from '@/lib/db';
 
 export const load: PageServerLoad = async ({ request }) => {
@@ -233,7 +234,7 @@ export const load: PageServerLoad = async ({ request }) => {
 ```typescript
 // API Route: /api/users
 
-import { koda, type RouteHandler } from '@koda/core';
+import { koda, type RouteHandler } from '@koda/server';
 
 export const GET: RouteHandler = async (c) => {
   const users = await db.select().from(usersTable);
@@ -403,8 +404,8 @@ koda deploy --target=web3
 ### `lib/auth.ts`
 
 ```typescript
-import { koda } from '@koda/core';
-import type { MiddlewareHandler } from '@koda/core';
+import { koda } from '@koda/server';
+import type { MiddlewareHandler } from '@koda/server';
 
 // Session-based auth middleware
 export const requireAuth: MiddlewareHandler = async (c, next) => {
@@ -435,7 +436,7 @@ export const requireRole = (role: string): MiddlewareHandler => {
 ### `routes/api/auth/+server.ts`
 
 ```typescript
-import { koda, type RouteHandler } from '@koda/core';
+import { koda, type RouteHandler } from '@koda/server';
 import { z } from 'zod';
 
 const LoginSchema = z.object({
@@ -572,7 +573,7 @@ export const errorHandler: MiddlewareHandler = async (c, next) => {
 ```typescript
 // routes/blog/[slug]/+page.server.ts
 
-import type { PageServerLoad, PageProps } from '@koda/core';
+import type { PageServerLoad, PageProps } from '@koda/server';
 
 interface BlogPost {
   id: number;
@@ -723,7 +724,7 @@ koda test --watch
 ```typescript
 // middleware.ts (root level)
 
-import { koda, type MiddlewareHandler } from '@koda/core';
+import { koda, type MiddlewareHandler } from '@koda/server';
 
 // Applied to ALL routes
 export const middleware: MiddlewareHandler[] = [
@@ -761,7 +762,7 @@ export const middleware = [requireAuth];
 ```typescript
 // hooks.server.ts
 
-import type { Handle } from '@koda/core';
+import type { Handle } from '@koda/server';
 
 export const handle: Handle = async ({ event, resolve }) => {
   // Before request
@@ -941,7 +942,7 @@ export const config = {
 ```typescript
 // routes/api/admin/cache/+server.ts
 
-import { koda } from '@koda/core';
+import { koda } from '@koda/server';
 
 export const POST: RouteHandler = async (c) => {
   const { tags } = await c.req.json();
@@ -984,7 +985,7 @@ export default defineConfig({
 ```typescript
 // routes/ws/chat/+server.ts
 
-import { koda, type WebSocketHandler } from '@koda/core';
+import { koda, type WebSocketHandler } from '@koda/server';
 
 export const ws: WebSocketHandler = {
   open(ws) {
@@ -1014,7 +1015,7 @@ export const ws: WebSocketHandler = {
 ```typescript
 // routes/api/notifications/stream/+server.ts
 
-import { koda, type RouteHandler } from '@koda/core';
+import { koda, type RouteHandler } from '@koda/server';
 
 export const GET: RouteHandler = async (c) => {
   const userId = c.get('user').id;
@@ -1077,7 +1078,7 @@ Screen ChatRoom {
 ```typescript
 // routes/api/upload/+server.ts
 
-import { koda, type RouteHandler } from '@koda/core';
+import { koda, type RouteHandler } from '@koda/server';
 
 export const POST: RouteHandler = async (c) => {
   const formData = await c.req.formData();
@@ -1311,7 +1312,7 @@ export function WelcomeEmail({ name, verifyUrl }: WelcomeEmailProps) {
 ### Sending Emails
 
 ```typescript
-import { koda } from '@koda/core';
+import { koda } from '@koda/server';
 import { WelcomeEmail } from '@/emails/welcome';
 
 await koda.email.send({
@@ -1452,7 +1453,7 @@ export default defineConfig({
 ```typescript
 // lib/analytics.ts
 
-import { koda } from '@koda/core';
+import { koda } from '@koda/server';
 
 // Track custom events
 koda.analytics.track('purchase', {
@@ -1511,7 +1512,7 @@ export const load: PageServerLoad = async ({ params }) => {
 ```typescript
 // routes/api/admin/metrics/+server.ts
 
-import { koda } from '@koda/core';
+import { koda } from '@koda/server';
 
 export const GET: RouteHandler = async (c) => {
   const metrics = await koda.metrics.get({
@@ -1761,7 +1762,7 @@ export default defineConfig({
 ```typescript
 // routes/api/search/+server.ts
 
-import { koda } from '@koda/core';
+import { koda } from '@koda/server';
 
 export const GET: RouteHandler = async (c) => {
   const { q, category, minPrice, maxPrice, page } = c.req.query();
@@ -2013,7 +2014,7 @@ export default defineConfig({
 ```typescript
 // lib/notifications.ts
 
-import { koda } from '@koda/core';
+import { koda } from '@koda/server';
 
 // Send push notification
 await koda.notifications.push({
@@ -2223,7 +2224,7 @@ export const openapi = generateOpenAPI({
 ```typescript
 // routes/api/users/+server.ts
 
-import { koda, type RouteHandler } from '@koda/core';
+import { koda, type RouteHandler } from '@koda/server';
 import { z } from 'zod';
 
 /**
@@ -2395,7 +2396,7 @@ export default defineConfig({
 
 ```typescript
 // Server-side
-import { koda } from '@koda/core';
+import { koda } from '@koda/server';
 
 export const load: PageServerLoad = async ({ locals }) => {
   const showNewDashboard = await koda.features.isEnabled('newDashboard', {
@@ -2476,7 +2477,7 @@ export default defineConfig({
 ### Using the Logger
 
 ```typescript
-import { koda } from '@koda/core';
+import { koda } from '@koda/server';
 
 // Structured logging
 koda.log.info('User signed up', {
@@ -2857,7 +2858,7 @@ export default defineConfig({
 
 ```typescript
 // Any error caught by koda() factory
-import { koda } from '@koda/core';
+import { koda } from '@koda/server';
 
 export const onError = (error: Error, c: Context) => {
   // Automatically extract source code and highlight the failing line
