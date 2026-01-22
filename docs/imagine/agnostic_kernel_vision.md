@@ -110,7 +110,7 @@ This ensures that *even if you mistakenly log the entire User object*, the passw
 
 ## ✈️ The Flight Recorder (Forensic Core)
 
-The "Black Box" feature leverages **Node/Bun AsyncLocalStorage** (ALS) to maintain a context trace throughout the request lifecycle, even across async/await boundaries.
+The "Black Box" feature leverages **Universal AsyncLocalStorage** (supported by Node, Bun, and Deno) to maintain a context trace throughout the request lifecycle, even across async/await boundaries.
 
 1.  **Request Start**: `ALS.enterWith({ traceId, sqlLogs: [], events: [] })`.
 2.  **DB Query**: The DB client pushes the query + duration into the current ALS store.
