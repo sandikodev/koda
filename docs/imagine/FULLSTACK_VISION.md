@@ -2,7 +2,12 @@
 
 > *"Imagine the perfect fullstack framework. This is what Koda looks like."*
 
-This document describes the **ideal fullstack Koda project** structure, combining the best patterns from SvelteKit, Astro, Flutter, and Laravel.
+This document describes the **ideal fullstack Koda project** structure. Koda is designed with a unique **Dual Personality**:
+
+1.  **Functional Zenith (Default)**: Intuitive, practical, and fast—like **SvelteKit** or **Next.js**. Perfect for rapid product development, frontend optimization, and Edge DevOps.
+2.  **Institutional Enterprise (Optional)**: A robust, structured mode for massive scale—like **Laravel** or **Spring**. It brings strict Dependency Injection, Service Layers, and Auditing to the **Edge Runtime**.
+
+> *"Koda allows Enterprise Architects to feel the joy of modern Edge performance, while giving Frontend Developers the structural safety of an institutional framework."*
 
 ---
 
@@ -3059,6 +3064,69 @@ Screen NFTGallery {
   }
 }
 ```
+
+---
+
+---
+
+## 🚀 The Scalable Spectrum: Functional vs. Enterprise
+
+Koda recognizes that not every app needs to be a fortress. But when it does, the capability is built-in.
+
+### Mode 1: Functional Zenith (Default)
+**"The Speed of Now."**
+
+Like **SvelteKit** or **Next.js**, the default mode is purely functional. Handlers are simple functions. State is atomic. It is optimized for **Zero-Overhead** and massive developer velocity.
+
+```typescript
+// routes/api/users.ts (Functional Mode)
+export const GET = async (c) => c.json(await db.select().from(users));
+```
+
+### Mode 2: Institutional Enterprise (Optional)
+**"The Rigor of Forever."**
+
+Like **Laravel** or **Spring**, this mode is for teams that need **Service Containers, Dependency Injection (DI), and Strict Contracts**. Koda allows you to bring this rigor to the Edge without bloating the runtime.
+
+#### The Service Container
+Koda provides a lightweight DI container that works across Bun and Edge runtimes.
+
+```typescript
+// lib/services/UserService.ts
+import { Service, Inject } from '@koda/server/di';
+
+@Service()
+export class UserService implements IUserService {
+  constructor(
+    @Inject('Repo') private repo: UserRepository,
+    @Inject('Logger') private logger: Logger
+  ) {}
+
+  async findActive() {
+    this.logger.info('Fetching active users');
+    return this.repo.find({ status: 'active' });
+  }
+}
+```
+
+#### The Controller Pattern
+You can swap functional routes for Class-based Controllers if your organization prefers strict routing contracts.
+
+```typescript
+// routes/api/users/+controller.ts
+import { Controller, Get, UseGuard } from '@koda/server/mvc';
+
+@Controller('/api/users')
+export class UserController {
+  @Get('/')
+  @UseGuard(AuthGuard)
+  async list(@Inject() users: UserService) {
+    return users.findActive();
+  }
+}
+```
+
+> **Why this matters**: Enterprise teams often avoid modern JS frameworks because they miss the structure of Java/PHP. Koda invites them to the modern web without forcing them to abandon their architectural discipline.
 
 ---
 
