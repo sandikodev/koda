@@ -717,66 +717,76 @@ koda test --watch
 
 ---
 
-## 🔌 Middleware & Hooks
+## 🔌 Middleware & Lifecycle: The Zenith Synthesis
 
-### Global Middleware
+Koda synthesizes the best of **Next.js consistency** and **SvelteKit purity**. We use the **short terminology** of Next.js (`middleware.ts`) but the **pure writing nuance** of SvelteKit (`handle`).
+
+### Unified `middleware.ts` (Root Level)
+
+Koda provides "Syntactic Sugar" for consistency while maintaining the "Pure Functional" power of the handle pattern.
 
 ```typescript
-// middleware.ts (root level)
+// middleware.ts
 
-import { koda, type MiddlewareHandler } from '@koda/server';
+import { handle, next, redirect } from '@koda/server';
 
-// Applied to ALL routes
-export const middleware: MiddlewareHandler[] = [
-  // Request ID for tracing
-  async (c, next) => {
-    c.set('requestId', crypto.randomUUID());
-    await next();
-  },
+/**
+ * The Zenith Synthesis: 
+ * - Pure like SvelteKit: Functional { event, resolve } pattern.
+ * - Consistent like Next.js: Syntactic sugar (next, redirect).
+ */
+export default handle(async ({ event, resolve }) => {
+  // 1. Pure Nuance: Intercepting the event
+  const start = Date.now();
   
-  // Logging
-  async (c, next) => {
-    const start = Date.now();
-    await next();
-    console.log(`${c.req.method} ${c.req.url} - ${Date.now() - start}ms`);
-  },
+  // 2. Syntactic Sugar: Consistent guards
+  if (event.url.pathname.startsWith('/app') && !event.locals.session) {
+    return redirect('/login');
+  }
+
+  // 3. The Pure Resolve
+  const response = await resolve(event);
   
-  // Security headers
-  ...koda.security(),
+  // 4. Consistent Sugar: Modifying response
+  response.headers.set('X-Response-Time', `${Date.now() - start}ms`);
+  
+  return response;
+});
+```
+
+### Route-specific "Pure" Middleware
+
+For individual routes, Koda maintains the clean array-based approach.
+
+```typescript
+// routes/app/settings/+page.server.ts
+
+import { requirePermission } from '@/lib/auth';
+
+// Pure, granular authority
+export const middleware = [
+  requirePermission('admin:write'),
 ];
 ```
 
-### Route-specific Middleware
+---
+
+## ⚡ Lifecycle Hooks orchestration
+
+Beyond the request/response cycle, Koda provides institutional hooks for the entire server lifecycle.
 
 ```typescript
-// routes/app/+layout.server.ts
+// lib/lifecycle.ts
 
-import { requireAuth } from '@/lib/auth';
+import { onBoot, onShutdown } from '@koda/server';
 
-// All routes under /app require authentication
-export const middleware = [requireAuth];
-```
+onBoot(async () => {
+  console.log("🛰️ Zenith Engine Booted: Connecting to specialized clusters...");
+});
 
-### Hooks
-
-```typescript
-// hooks.server.ts
-
-import type { Handle } from '@koda/server';
-
-export const handle: Handle = async ({ event, resolve }) => {
-  // Before request
-  event.locals.startTime = Date.now();
-  
-  const response = await resolve(event);
-  
-  // After request
-  response.headers.set('X-Response-Time', 
-    `${Date.now() - event.locals.startTime}ms`
-  );
-  
-  return response;
-};
+onShutdown(async () => {
+  console.log("🛡️ Graceful shutdown initiated: Flushing audit logs...");
+});
 ```
 
 ---
