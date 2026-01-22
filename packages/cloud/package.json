@@ -1,0 +1,9 @@
+{
+  "name": "@koda/cloud",
+  "version": "0.1.0-zenith",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@koda/signals": "workspace:*"
+  }
+}
