@@ -3,9 +3,9 @@ import { Command } from 'commander';
 import pc from 'picocolors';
 import { initCommand } from './commands/init';
 import { auditCommand } from './commands/audit';
-import { evolveCommand } from './commands/evolve';
 import { generateCommand } from './commands/generate';
 import { repairCommand } from './commands/repair';
+import { contextCommand } from './commands/context';
 
 const program = new Command();
 
@@ -14,7 +14,8 @@ program
     .description('The institutional CLI for the Koda Zenith Metaframework')
     .version('0.1.0-zenith')
     .addCommand(generateCommand)
-    .addCommand(repairCommand);
+    .addCommand(repairCommand)
+    .addCommand(contextCommand);
 
 program
     .command('init')
