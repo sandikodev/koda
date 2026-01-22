@@ -3476,6 +3476,50 @@ export const middleware = async (c, next) => {
 
 ---
 
+---
+
+## 🔮 The Event Horizon: Experimental Physics
+
+Ready to feel "Sakit Jiwa" (Mind-Blown)? Koda isn't just catching up to 2024; it's pulling 2030 into the present. These are the experimental modules available in the **Zenith Labs** channel.
+
+### 1. Telepathic Prefetching (`@koda/ai`)
+We don't just prefetch when you hover. We use a **Local Edge LLM** (`NanoGPT`) to analyze the user's mouse vectors and scroll velocity to predict their intent **before they even move their cursor**.
+
+```typescript
+// koda.config.ts
+export default defineConfig({
+  ai: {
+    telepathy: {
+      model: 'koda-nano-v1', // 5MB WASM model running in browser
+      sensitivity: 'aggressive', // Prefetch probability > 85%
+    }
+  }
+});
+```
+> **The Result**: Navigation feels instant because the page is already loaded *before the user decides to click*.
+
+### 2. Warp Drive Deployment (`@koda/warp`)
+Why choose between AWS, Cloudflare, or Vercel? **Warp Drive** compiles your Koda app into **Poly-Cloud Bytecode**.
+
+```bash
+# Deploys to ALL providers simultaneously
+koda warp --targets=aws,vercel,cloudflare --strategy=active-active
+
+# 0% Downtime. If AWS us-east-1 goes down, Koda instinctively 
+# routes traffic to Cloudflare edge nodes in milliseconds.
+```
+
+### 3. Chronos Debugging (`@koda/chronos`)
+Found a bug that only happens "sometimes"? **Chronos** records the entire deterministic state of the user session (Inputs, Network, Random Seeds).
+
+```bash
+# Replay the user's exact session locally
+koda chronos replay session_8x92nm --visual
+```
+*You watch the ghost of the user's cursor move, click, and crash your app in your local dev environment. You fix it. You rewrite history.*
+
+---
+
 ## 🧠 The Cultural Engine: The Meme of Assimilation
 
 Koda is not just code; it is a **Meme of Assimilation**. It represents the critical maturity of the web developer—one who has moved beyond the "Framework Wars" and embraced a **Meritocratic Engineering** mindset.
