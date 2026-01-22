@@ -251,6 +251,21 @@ We are not building a castle in the clouds. We are building a skyscraper, floor 
 
 ---
 
+## 📈 Strategic Roadmap
+
+| Feature | Pillar | Status | Influence |
+| :--- | :--- | :--- | :--- |
+| **Fluent API factory** | DX | ✅ Implemented | Elysia |
+| **Zenith Security Primitive** | DX/DevOps | ✅ Implemented | Laravel/Rails |
+| **Multi-Engine Bridge** | UI | 📅 Planned | Astro |
+| **App-Building Chassis** | UX | 📅 Planned | Flutter |
+| **Agnostic Dispatcher** | DevOps | ✅ Implemented | Hono+Bun/Deno |
+| **Koda CLI** | DX | ✅ Implemented | Laravel |
+| **Zenith UI Primitives** | UX | ✅ Implemented | Flutter |
+| **.koda DSL Syntax** | UX | 🔄 In Progress | Flutter/Dart |
+
+---
+
 ## 🧠 Deep Architecture Dives
 
 Do not just take our word for it. Read the blueprints:
