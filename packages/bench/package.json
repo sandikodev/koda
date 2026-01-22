@@ -1,0 +1,10 @@
+{
+  "name": "@koda/bench",
+  "version": "0.1.0-zenith",
+  "description": "High-precision performance verification for the Koda Zenith Metaframework",
+  "main": "./src/index.ts",
+  "dependencies": {
+    "@koda/signals": "workspace:*",
+    "@koda/core": "workspace:*"
+  }
+}
