@@ -11,6 +11,7 @@ This document describes the **ideal fullstack Koda project** structure, combinin
 ```
 my-koda-app/
 ├── koda.config.ts           # Single config file (like next.config.js)
+├── proxy.ts                 # Gateway & Lifecycle (Zenith Synthesis)
 ├── package.json
 │
 ├── content/                  # 📚 Content Collections (Astro-style)
@@ -717,44 +718,45 @@ koda test --watch
 
 ---
 
-## 🔌 Middleware & Lifecycle: The Zenith Synthesis
+## 🔌 Proxy & Lifecycle: The Zenith Gateway Synthesis
 
-Koda synthesizes the best of **Next.js consistency** and **SvelteKit purity**. We use the **short terminology** of Next.js (`middleware.ts`) but the **pure writing nuance** of SvelteKit (`handle`).
+Koda adopts the **Next.js 16 Proxy-first approach** for maximum architectural clarity. Instead of hidden middleware, we use an explicit **`proxy.ts`**—the institutional gateway that intercepts every request at the edge.
 
-### Unified `middleware.ts` (Root Level)
+### Unified `proxy.ts` (Entry Point)
 
-Koda provides "Syntactic Sugar" for consistency while maintaining the "Pure Functional" power of the handle pattern.
+The `proxy.ts` serves as the first line of intelligence, combining SvelteKit's **functional purity** with Next.js's **syntactic consistency**.
 
 ```typescript
-// middleware.ts
+// proxy.ts
 
 import { handle, next, redirect } from '@koda/server';
 
 /**
- * The Zenith Synthesis: 
- * - Pure like SvelteKit: Functional { event, resolve } pattern.
- * - Consistent like Next.js: Syntactic sugar (next, redirect).
+ * The Zenith Gateway (Inspired by Next.js 16 Proxy)
+ * - Pure Nuance: SvelteKit-style functional { event, resolve }
+ * - Architectural Clarity: Explicit proxying before dispatch
  */
 export default handle(async ({ event, resolve }) => {
-  // 1. Pure Nuance: Intercepting the event
+  // 1. Edge-first Interception
   const start = Date.now();
   
-  // 2. Syntactic Sugar: Consistent guards
+  // 2. Syntactic Sugar Guards
   if (event.url.pathname.startsWith('/app') && !event.locals.session) {
     return redirect('/login');
   }
 
-  // 3. The Pure Resolve
+  // 3. Agnostic Resolution
   const response = await resolve(event);
   
-  // 4. Consistent Sugar: Modifying response
+  // 4. Institutional Hardening
+  response.headers.set('X-Proxy-Engine', 'Koda Zenith');
   response.headers.set('X-Response-Time', `${Date.now() - start}ms`);
   
   return response;
 });
 ```
 
-### Route-specific "Pure" Middleware
+### Route-specific "Pure" Interceptors
 
 For individual routes, Koda maintains the clean array-based approach.
 
@@ -3219,7 +3221,7 @@ By providing a standard, institutional chassis, we free the developer to focus o
 | **Ideation** | CLI scaffolding, project templates |
 | **Development** | Hot reload, TypeScript, DX tools |
 | **UI/UX** | Zenith primitives, `.koda` DSL, multi-engine |
-| **Backend** | Type-safe API, middleware, security |
+| **Backend** | Type-safe API, Gateway Proxy, security |
 | **Database** | Migrations, seeding, ORM integration |
 | **Auth** | Session, JWT, OAuth, RBAC |
 | **Storage** | File uploads, S3/R2, image optimization |
