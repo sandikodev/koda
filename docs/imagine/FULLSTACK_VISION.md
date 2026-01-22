@@ -338,6 +338,44 @@ export function SearchBar() {
 
 ---
 
+### 🧠 Deep Dive: The Universal Signal Bus
+
+How do React and Svelte talk to each other? Koda provides a **Universal Signal Bus** (`@koda/ui/signals`) that bridges the framework gap without React Context providers or Svelte Stores.
+
+```typescript
+// lib/store.ts
+import { signal } from '@koda/ui';
+
+// A universal signal that works in ANY framework
+export const searchOpen = signal(false);
+```
+
+**In React (`SearchBar.tsx`):**
+```tsx
+import { useSignal } from '@koda/ui/react';
+import { searchOpen } from '@/lib/store';
+
+export function SearchBar() {
+  const isOpen = useSignal(searchOpen); // React reactivity
+  return <button onClick={() => searchOpen.value = !isOpen}>Toggle</button>;
+}
+```
+
+**In Svelte (`Overlay.svelte`):**
+```svelte
+<script>
+  import { searchOpen } from '@/lib/store';
+</script>
+
+{#if $searchOpen} <!-- Svelte reactivity -->
+  <div class="overlay">Search is Active!</div>
+{/if}
+```
+
+> **The Insight**: Koda's Signal Bus abstracts the *implementation details* of reactivity. React sees a Hook, Svelte sees a Store, Vue sees a Ref. They all share the same memory address.
+
+---
+
 ## 🚀 CLI Commands
 
 ```bash
@@ -498,6 +536,24 @@ export const DELETE: RouteHandler = async (c) => {
   return c.json({ success: true });
 };
 ```
+
+---
+
+### 🔒 Deep Dive: Sovereign Security Protocols
+
+Why did we call it "Institutional"? Because Koda applies **Banking-Grade Security** by default, not as an afterthought.
+
+1.  **Encrypted Session Stores**: `koda.session.create()` doesn't just set a cookie. It encrypts the session payload using `AES-256-GCM` before it ever leaves the server.
+2.  **Auto-CSRF (Double-Submit)**: Every mutation request automatically checks for a `X-CSRF-Token` header that matches the encrypted cookie. No middleware configuration required.
+3.  **PII Redaction**: The Koda logger automatically detects and masks fields like `password`, `creditCard`, `jti`, and `ssn` in your logs.
+
+```typescript
+// How Koda sees your logs internally:
+koda.log.info("User Login", { email: "user@example.com", password: "password123" });
+// Output: [INFO] User Login { email: "user@example.com", password: "[REDACTED]" }
+```
+
+> **The Insight**: You don't configure security in Koda; you inherit it. This is the **Fortress Principle**.
 
 ---
 
@@ -2922,6 +2978,23 @@ export const onError = (error: Error, c: Context) => {
     <KodaDiagnostics 
       error="${diagnostics.message}"
       stack="${diagnostics.stack}"
+    />
+  `);
+};
+```
+
+### 🧠 Deep Dive: The Flight Recorder
+
+Koda doesn't just show stack traces; it captures the **Contextual State** at the moment of failure, like an airplane's black box.
+
+| Captured Data | Description |
+| :--- | :--- |
+| **ENV Snapshot** | Environment variables active during the error (redacted). |
+| **Heap Stats** | Memory usage (`rss`, `heapTotal`) to detect leaks. |
+| **User Journey** | The last 5 navigation events leading to the crash. |
+| **Query History** | The last SQL queries executed (with timings). |
+
+> **The Insight**: A bug isn't just a line number. It's a *state*. Koda preserves that state so you can time-travel to the moment of impact.
       source="${diagnostics.sourceCodeSnippet}"
       file="${diagnostics.file}"
       line="${diagnostics.line}"
