@@ -1,0 +1,15 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Satellite Core: Hexagonal Prism (Solid Deep Violet) -->
+  <path d="M256 120L360 180V300L256 360L152 300V180L256 120Z" fill="#8B5CF6" />
+  
+  <!-- Left Solar Panel (Solid Electric Blue) -->
+  <rect x="60" y="210" width="80" height="60" rx="4" fill="#3B82F6" />
+  <rect x="140" y="235" width="12" height="10" fill="#6366F1" />
+  
+  <!-- Right Solar Panel (Solid Electric Blue) -->
+  <rect x="372" y="210" width="80" height="60" rx="4" fill="#3B82F6" />
+  <rect x="360" y="235" width="12" height="10" fill="#6366F1" />
+  
+  <!-- Central Pulse (Signal) -->
+  <circle cx="256" cy="240" r="16" fill="white" />
+</svg>
