@@ -5,7 +5,6 @@ import path from "node:path";
  * Koda CLI: Init Command 🚀
  * Part of Phase 7: Koda CLI (Scaffolding Engine)
  * Synchronizes the Zenith vision into a new project structure.
- * ทุก detail Zenith tetap aman.
  */
 
 export const initCommand = async (targetPath: string, force: boolean = false) => {
@@ -34,6 +33,7 @@ export const initCommand = async (targetPath: string, force: boolean = false) =>
             },
             dependencies: {
                 "@koda/core": "latest",
+                "@koda/server": "latest",
                 "hono": "^4.11.4",
             }
         };
@@ -44,7 +44,8 @@ export const initCommand = async (targetPath: string, force: boolean = false) =>
         );
 
         // 3. Create Basic Server
-        const serverIndex = `import { koda } from "@koda/core";
+        // Note: Using @koda/server factory in next iteration
+        const serverIndex = `import { koda } from "@koda/server";
 
 const app = koda();
 
@@ -63,7 +64,7 @@ export default {
         // 4. Create README.md
         const readme = `# Zenith Synthesis Project 💎
 
-Built with **Koda Core**, the universal zenith metaframework.
+Built with **Koda**, the universal zenith metaframework.
 
 ## 🚀 Commands
 - \`bun dev\`: Start the development engine.

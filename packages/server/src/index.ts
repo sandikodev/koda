@@ -2,16 +2,23 @@ import { Hono } from 'hono';
 import type { MiddlewareHandler, Env, Schema } from 'hono';
 import { secureHeaders } from 'hono/secure-headers';
 import { rateLimiter } from 'hono-rate-limiter';
+import {
+    getKodaEnv,
+    kodaStatic,
+    kodaSanitizer,
+    kodaProtect,
+    KodaSEO,
+    kodaSEOMiddleware,
+    type KodaSEOConfig,
+    type KodaEnv
+} from '@koda/core';
 import path from 'node:path';
-import { getKodaEnv, kodaStatic } from '../io';
-import type { KodaEnv } from '../io';
-import { kodaSanitizer, kodaProtect } from './sanitizer';
-import { KodaSEO, kodaSEOMiddleware, type KodaSEOConfig } from './seo';
 
 /**
- * @framework/server/dx
- * Internal diagnostic engine for development.
+ * @koda/server - The Engine
+ * The runtime motor that drives Koda apps.
  */
+
 const kodaDX = new Hono();
 
 if (process.env.NODE_ENV !== 'production') {
@@ -72,8 +79,6 @@ if (process.env.NODE_ENV !== 'production') {
     });
 
     kodaDX.get("/security", async (c) => {
-        // Institutional-Grade Security Scanning Logic
-        // Provides real-time security report for the DX engine.
         return c.json({
             status: "zenith",
             fortress_level: "High",
@@ -95,7 +100,7 @@ export interface KodaFactory {
         csp?: unknown,
         sanitize?: boolean
     }): MiddlewareHandler[];
-    static(options?: Parameters<typeof kodaStatic>[0]): MiddlewareHandler;
+    static(options?: any): MiddlewareHandler;
     seo(config: KodaSEOConfig): {
         middleware: MiddlewareHandler;
         engine: KodaSEO;
@@ -107,7 +112,6 @@ export interface KodaFactory {
 function createKoda<T extends Env = any, S extends Schema = any, BasePath extends string = "/">() {
     const app = new Hono<T, S, BasePath>();
 
-    // Stage Zenith: Auto-detect and register DX boundary
     if (process.env.NODE_ENV !== 'production') {
         app.route('/api/framework/dx', kodaDX);
     }
@@ -117,10 +121,6 @@ function createKoda<T extends Env = any, S extends Schema = any, BasePath extend
 
 export const koda = createKoda as unknown as KodaFactory;
 
-/**
- * Koda Security Primitive
- * Unified posture for Edge-native protection.
- */
 koda.security = (config?: {
     rateLimit?: { windowMs: number, limit: number },
     csp?: unknown,
@@ -128,18 +128,14 @@ koda.security = (config?: {
 }): MiddlewareHandler[] => {
     const middleware: MiddlewareHandler[] = [];
 
-    // 0. Advanced Sanitization (New Phase 8 logic)
     if (config?.sanitize !== false) {
         middleware.push(kodaSanitizer());
     }
 
-    // 1. Secure Headers (XSS, HSTS, CSP)
     middleware.push(secureHeaders({
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         contentSecurityPolicy: config?.csp as any
     }));
 
-    // 2. Intelligent Rate Limiting
     if (config?.rateLimit) {
         middleware.push(rateLimiter({
             windowMs: config.rateLimit.windowMs,
@@ -151,15 +147,8 @@ koda.security = (config?: {
     return middleware;
 };
 
-/**
- * Koda Static Primitive
- * Selective hydration-aware static serving.
- */
-koda.static = (options?: Parameters<typeof kodaStatic>[0]) => kodaStatic(options);
+koda.static = (options?: any) => kodaStatic(options);
 
-/**
- * Koda SEO Primitive
- */
 koda.seo = (config: KodaSEOConfig) => {
     const engine = new KodaSEO(config);
     return {
@@ -168,9 +157,6 @@ koda.seo = (config: KodaSEOConfig) => {
     };
 };
 
-/**
- * Koda Environment Reference
- */
 Object.defineProperty(koda, 'env', {
     get: () => getKodaEnv(),
     enumerable: true,

@@ -6,7 +6,6 @@ import path from "node:path";
  * Koda Evolve: The Evolutionary Engine 🧬
  * Part of Phase 11: 2026-2030 Strategic Alignment
  * Maintains the 'Zenith Hegemony' by automating upgrades and enforcing standards.
- * ทุก detail Zenith tetap aman.
  */
 
 export async function evolveCommand(args: { values: { dryRun?: boolean } }) {
@@ -60,7 +59,7 @@ export async function evolveCommand(args: { values: { dryRun?: boolean } }) {
     console.log(styleText('gray', "\n[3/3] Scanning for Evolutionary Upgrades..."));
 
     // (Simulating update check)
-    console.log(styleText('green', "  ✓ Koda Core is at the Zenith (v0.1.0). No upgrades needed."));
+    console.log(styleText('green', "  ✓ Koda is at the Zenith (v0.1.0). No upgrades needed."));
 
     console.log(styleText('blue', styleText('bold', "\n✨ Evolution Complete. System is at Peak Zenith.")));
 }

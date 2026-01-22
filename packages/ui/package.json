@@ -12,7 +12,8 @@
     "lucide-react": "^0.473.0",
     "tailwind-merge": "^2.2.0",
     "clsx": "^2.1.0",
-    "framer-motion": "^12.26.2"
+    "framer-motion": "^12.26.2",
+    "@koda/signals": "workspace:*"
   },
   "peerDependencies": {
     "react": "^19.0.0",

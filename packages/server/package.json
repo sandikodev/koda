@@ -1,0 +1,14 @@
+{
+  "name": "@koda/server",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@koda/core": "workspace:*",
+    "hono": "^4.11.4",
+    "hono-rate-limiter": "^0.5.3"
+  }
+}

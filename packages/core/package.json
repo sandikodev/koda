@@ -3,14 +3,10 @@
   "version": "0.1.0",
   "type": "module",
   "main": "./src/index.ts",
-  "bin": {
-    "koda": "./src/cli/index.ts"
-  },
   "exports": {
     ".": "./src/index.ts",
     "./dx": "./src/dx/index.ts",
     "./io": "./src/io/index.ts",
-    "./server": "./src/server/index.ts",
     "./content": "./src/content/index.ts"
   },
   "dependencies": {

@@ -5,7 +5,6 @@ import path from "node:path";
  * Koda CLI: Audit Command 🛡️
  * Part of Phase 8: Cybersecurity & Pentesting Engine
  * Performs native hardening checks to ensure the "Fortress Principle".
- * ทุก detail Zenith tetap aman.
  */
 
 export const auditCommand = async (projectPath: string) => {
